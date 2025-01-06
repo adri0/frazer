@@ -1,3 +1,5 @@
 click==8.*
+fastapi==0.155.*
 openai==1.53
-python-dotenv==1.0.1
+python-dotenv==1.*
+uvicorn==0.34.*
