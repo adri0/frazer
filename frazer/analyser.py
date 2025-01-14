@@ -3,7 +3,7 @@ from openai import OpenAI
 open_ai = OpenAI()
 
 
-def analyse_sentence(sentence: str) -> str:
+def analyse_sentence(sentence: str) -> str | None:
     response = open_ai.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
