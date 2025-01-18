@@ -1,5 +1,7 @@
 click==8.*
-fastapi==0.155.*
-openai==1.53
+fastapi==0.115.*
+mangum==0.19.*
+openai==1.59.7
+pydantic==2.9.*
 python-dotenv==1.*
 uvicorn==0.34.*

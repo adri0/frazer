@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 from pydantic import BaseModel
 
 from frazer.analyser import analyse_sentence
@@ -32,7 +33,9 @@ async def process_payload(payload: InputPayload):
     return response
 
 
-if __name__ == "__main__":
-    import uvicorn
+handler = Mangum(app)
 
-    uvicorn.run("frazer.api:app", host="127.0.0.1", port=8011, reload=True)
+# if __name__ == "__main__":
+#     handler = Mangum(app)
+
+# uvicorn.run("frazer.api:app", host="127.0.0.1", port=8011, reload=True)
