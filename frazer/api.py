@@ -1,10 +1,12 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum
 from pydantic import BaseModel
 
 from frazer.analyser import analyse_sentence
 
+logger = logging.getLogger(__name__)
 app = FastAPI()
 
 
@@ -28,14 +30,13 @@ app.add_middleware(
 
 @app.post("/sentence", response_model=OutputPayload)
 async def process_payload(payload: InputPayload):
+    logger.info(f"Incoming sentence: {payload.sentence}")
     result = analyse_sentence(payload.sentence)
-    response = OutputPayload(analysis=result)
+    response = OutputPayload(analysis=str(result))
     return response
 
 
-handler = Mangum(app)
+if __name__ == "__main__":
+    import uvicorn
 
-# if __name__ == "__main__":
-#     handler = Mangum(app)
-
-# uvicorn.run("frazer.api:app", host="127.0.0.1", port=8011, reload=True)
+    uvicorn.run("frazer.api:app", host="127.0.0.1", port=8011, reload=True)

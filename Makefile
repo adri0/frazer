@@ -1,10 +1,14 @@
-pack:
-	rm -rf package
+lambda:
 	mkdir package
 	pip install -r requirements.txt --target=package/ --platform=manylinux2014_aarch64 --implementation=cp --only-binary=:all:
 	cp -r frazer package/
-	cp app.py package/
-	rm -f deployment-package.zip
-	cd package/
-	zip -r ../deployment-package.zip .
-	cd ..
+	cp frazer/lambda.py logging.conf package/
+	rm -f frazer-lambda.zip
+	cd package/ ; zip -r ../frazer-lambda.zip . -x "*__pycache__*"
+	rm -rf package/
+
+deploy-site:
+	aws s3 --profile=frazer cp site/frazer.html s3://coisaspublicas/frazer.html --acl public-read
+
+deploy-lambda:
+	aws --profile=frazer lambda update-function-code --function-name frazer --zip-file fileb://frazer-lambda.zip
