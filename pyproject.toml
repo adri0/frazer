@@ -1,7 +1,7 @@
 [project]
 name = "frazer"
-version = "0.0.1"
-description = "Obtain explanation for sentences in Polish language."
+version = "0.0.1.dev2025022"
+description = "Syntatical analysis for sentences in Polish language."
 authors = [
     { name = "Adriano Oliveira" }
 ]
