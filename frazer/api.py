@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from frazer.analyser import Sentence, analyse_sentence
 
 logger = logging.getLogger(__name__)
+
 app = FastAPI()
 
 
