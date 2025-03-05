@@ -41,6 +41,7 @@ jobs:
 
       - name: Build frontend
         run: |
+          pip install -e .
           make build-site
 
       - name: Deploy site
