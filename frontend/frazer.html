@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frazer - Sentence Analyser</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            flex: 1;
+        }
+        footer {
+            margin-top: auto;
+            font-size: 0.875rem; 
+            color: #6c757d; 
+            text-align: center; 
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="d-flex justify-content-center align-items-start py-5">
+    <div class="container text-center">
+        <h1 class="mb-4">Frazer - Sentence Analyser</h1>
+        <textarea id="textInput" class="form-control mb-3" rows="5" placeholder="Enter your text here..."></textarea>
+        <button id="analyzeButton" class="btn btn-primary">Analyze</button>
+        <div id="loadingIcon" class="spinner-border text-primary mt-3" role="status" style="display: none;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div id="result" class="mt-4 alert alert-info text-start" style="display: none;"></div>
+    </div>
+
+    <footer class="mt-5 text-center">
+        <p>Frazer - Sentence Analyser {{ version }}</p>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            $('#analyzeButton').on('click', function () {
+                const text = $('#textInput').val();
+                if (!text.trim()) {
+                    $('#result').text('Please enter some text to analyze.').removeClass('alert-info').addClass('alert-danger').show();
+                    return;
+                }
+
+                $('#result').hide().text('').removeClass('alert-danger').addClass('alert-info');
+                $('#analyzeButton').prop('disabled', true);
+                $('#loadingIcon').show();
+
+                $.ajax({
+                    url: '{{ url }}',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ "sentence": text }),
+                    success: function (response) {
+                        const sentence = response.sentence;
+                        if (sentence.words && sentence.translation) {
+                            let htmlContent = `<div class="card"><div class="card-body">`;
+                            htmlContent += `<h5 class="card-title">Translation</h5>`;
+                            htmlContent += `<p class="card-text">${sentence.translation}</p>`;
+                            htmlContent += `<h5 class="card-title">Words</h5>`;
+                            htmlContent += '<ul class="list-group list-group-flush">';
+                            sentence.words.forEach(word => {
+                                htmlContent += `<li class="list-group-item"><strong>${word.original_value}</strong> (${word.root}): ${word.original_value_translation}`;
+                                if (word.declension_case) {
+                                    htmlContent += `, <span class="badge bg-primary" title="declesion">${word.declension_case}</span>`;
+                                }
+                                if (word.aspect) {
+                                    htmlContent += `, <span class="badge bg-secondary" title="aspect">${word.aspect}</span>`;
+                                }
+                                if (word.conjugation) {
+                                    htmlContent += `, Conjugation: ${word.conjugation}`;
+                                }
+                                if (word.function) {
+                                    htmlContent += `, Function: ${word.function}`;
+                                }
+                                if (word.verb_causing_declension) {
+                                    htmlContent += `, Verb Causing Declension: ${word.verb_causing_declension}`;
+                                }
+                                htmlContent += '</li>';
+                            });
+                            htmlContent += '</ul>';
+                            if (sentence.remarks) {
+                                htmlContent += `<h5 class="card-title">Remarks</h5>`;
+                                htmlContent += `<p class="card-text">${sentence.remarks}</p>`;
+                            }
+                            htmlContent += `</div></div>`;
+                            $('#result').html(htmlContent).show();
+                        } else {
+                            $('#result').text('Unexpected response format.').removeClass('alert-info').addClass('alert-danger').show();
+                        }
+                    },
+                    error: function () {
+                        $('#result').text('An error occurred while analyzing the text.').removeClass('alert-info').addClass('alert-danger').show();
+                    },
+                    complete: function () {
+                        $('#analyzeButton').prop('disabled', false); // Enable the button
+                        $('#loadingIcon').hide(); // Hide the loading icon
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
