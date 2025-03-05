@@ -27,8 +27,7 @@ jobs:
 
       - name: Install AWS CLI
         run: |
-          sudo apt-get update
-          sudo apt-get install -y awscli
+          pip install awscli
 
       - name: Configure AWS CLI
         run: |
