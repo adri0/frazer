@@ -36,7 +36,7 @@
     </div>
 
     <footer class="mt-5 text-center">
-        <p>Frazer - Sentence Analyser 0.0.1.dev20250222</p>
+        <p>Frazer - Sentence Analyser 0.0.1-dev-20250302</p>
     </footer>
 
     <script>
@@ -54,7 +54,6 @@
 
                 $.ajax({
                     url: 'https://no64o0euph.execute-api.eu-west-1.amazonaws.com/sentence',
-                    // url: 'http://127.0.0.1:8011/sentence',
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({ "sentence": text }),

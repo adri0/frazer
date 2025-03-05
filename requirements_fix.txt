@@ -11,7 +11,7 @@ coverage==7.6.10
 distro==1.9.0
 docstring_parser==0.16
 fastapi==0.115.6
--e git+ssh://git@github.com/adri0/frazer.git@f7c9f64aeda03418508424889750f44be7c1df6f#egg=frazer
+-e git+ssh://git@github.com/adri0/frazer.git@f4fef12f7c3bd9f736602d40c697c1c3a659e552#egg=frazer
 frozenlist==1.5.0
 h11==0.14.0
 httpcore==1.0.6
