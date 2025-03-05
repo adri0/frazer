@@ -40,6 +40,8 @@ jobs:
           aws lambda update-function-code --function-name frazer --zip-file fileb://frazer-lambda.zip
 
       - name: Build frontend
+        env: 
+          SENTENCE_API_URL: ${{ secrets.SENTENCE_API_URL }}
         run: |
           pip install -e .
           make build-site
