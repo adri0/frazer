@@ -48,4 +48,4 @@ jobs:
 
       - name: Deploy site
         run: |
-          aws s3 --profile=frazer cp site/frazer.html s3://${{ secrets.BUCKET }}/frazer.html --acl public-read
+          aws s3 cp site/frazer.html s3://${{ secrets.BUCKET }}/frazer.html --acl public-read
