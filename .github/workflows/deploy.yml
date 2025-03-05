@@ -41,7 +41,7 @@ jobs:
 
       - name: Build frontend
         run: |
-          pip install -r requirements.txt
+          pip install -e .
           make build-site
 
       - name: Deploy site
