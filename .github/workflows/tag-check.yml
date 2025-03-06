@@ -31,7 +31,7 @@ jobs:
           git fetch --tags
           TAGS=$(git tag)
           echo "Existing tags: $TAGS"
-          if echo "$TAGS" | grep -q "^$VERSION$"; then
+          if echo "$TAGS" | grep -q "^v$VERSION$"; then
             echo "Tag v$VERSION already exists! Bump the __version__ of the app."
             exit 1
           else
