@@ -8,4 +8,4 @@ logging.config.fileConfig("logging.conf")
 load_dotenv()
 
 
-__version__ = "0.0.1-dev-20250305"
+__version__ = "0.0.1-dev-2025022"
