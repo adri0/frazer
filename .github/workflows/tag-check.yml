@@ -28,6 +28,7 @@ jobs:
 
       - name: Check if Git tag exists
         run: |
+          git fetch --tags
           TAGS=$(git tag)
           echo "Existing tags: $TAGS"
           if echo "$TAGS" | grep -q "^$VERSION$"; then
