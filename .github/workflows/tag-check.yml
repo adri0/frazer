@@ -21,7 +21,8 @@ jobs:
       - name: Extract version from Python file
         id: get_version
         run: |
-          VERSION=$(grep -oP "(?<=__version__ = \")[^"]+" frazer/__init__.py)
+          pip install -e .
+          VERSION=$(python -c "import frazer; print(frazer.__version__)")
           echo "Version found: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
