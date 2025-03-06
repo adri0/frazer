@@ -23,7 +23,7 @@ jobs:
         run: |
           VERSION=$(grep -oP "(?<=__version__ = \")[^\"]+" frazer/__init__.py)
           echo "Version found: $VERSION"
-          SEMVER_REGEX="^([0-9]+)\.([0-9]+)\.([0-9]+)(-[0-9A-Za-z-.]+)?(\+[0-9A-Za-z-.]+)?$"
+          SEMVER_REGEX="^([0-9]+)\.([0-9]+)\.([0-9]+)(\-[0-9A-Za-z]+)?(\+[0-9A-Za-z]+)?$"
           if [[ ! "$VERSION" =~ $SEMVER_REGEX ]]; then
             echo "❌ Invalid semantic version: $VERSION"
             exit 1
