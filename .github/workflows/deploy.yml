@@ -1,0 +1,64 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+        - main
+
+jobs:
+  deploy:
+    name: Deploy to AWS Lambda
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Create Lambda package
+        run: |
+          python -m pip install --upgrade pip
+          make lambda
+
+      - name: Install AWS CLI
+        run: |
+          pip install awscli
+
+      - name: Configure AWS CLI
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to Lambda
+        run: |
+          aws lambda update-function-code --function-name frazer --zip-file fileb://frazer-lambda.zip
+
+      - name: Build frontend
+        env: 
+          SENTENCE_API_URL: ${{ secrets.SENTENCE_API_URL }}
+        run: |
+          pip install -e .
+          make build-site
+
+      - name: Deploy site
+        run: |
+          aws s3 cp site/frazer.html s3://${{ secrets.BUCKET }}/frazer.html --acl public-read
+
+      - name: Extract Version
+        id: get_version
+        run: |
+          VERSION=$(python -c "import frazer; print(frazer.__version__)")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create Git Tag
+        run: |
+          echo "Creating tag v$VERSION"
+          git tag "v$VERSION"
+          git push origin "v$VERSION"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

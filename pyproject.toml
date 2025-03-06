@@ -6,7 +6,7 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
-dynamic = ["version"]
+dynamic = ["version", "dependencies"]
 
 [project.optional-dependencies]
 test = [
@@ -24,3 +24,4 @@ exclude = ["tests*", "webapp"]
 
 [tool.setuptools.dynamic]
 version = {attr = "frazer.__version__"}
+dependencies = {file = ["requirements.txt"]}
