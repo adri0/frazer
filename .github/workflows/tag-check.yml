@@ -28,7 +28,7 @@ jobs:
 
       - name: Check if Git tag exists
         run: |
-          if git rev-parse "refs/tags/$VERSION" >/dev/null 2>&1; then
+          if ! git rev-parse "refs/tags/$VERSION" >/dev/null 2>&1; then
             echo "Tag v$VERSION already exists! Bump the __version__ of the app."
             exit 1
           fi
