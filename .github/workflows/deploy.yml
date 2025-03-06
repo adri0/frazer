@@ -4,7 +4,6 @@ on:
   push:
     branches:
         - main
-        - cicd
 
 jobs:
   deploy:
@@ -49,3 +48,17 @@ jobs:
       - name: Deploy site
         run: |
           aws s3 cp site/frazer.html s3://${{ secrets.BUCKET }}/frazer.html --acl public-read
+
+      - name: Extract Version
+        id: get_version
+        run: |
+          VERSION=$(python -c "import frazer; print(frazer.__version__)")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create Git Tag
+        run: |
+          echo "Creating tag v$VERSION"
+          git tag "v$VERSION"
+          git push origin "v$VERSION"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

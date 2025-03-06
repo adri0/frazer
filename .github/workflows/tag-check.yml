@@ -1,0 +1,34 @@
+name: Check Version Tag
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-version-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+
+      - name: Extract version from Python file
+        id: get_version
+        run: |
+          VERSION=$(grep -oP "(?<=__version__ = \")[^"]+" frazer/__init__.py)
+          echo "Version found: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Check if Git tag exists
+        run: |
+          if git rev-parse "refs/tags/$VERSION" >/dev/null 2>&1; then
+            echo "Tag v$VERSION already exists! Bump the __version__ of the app."
+            exit 1
+          fi
+        shell: bash
