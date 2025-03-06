@@ -21,7 +21,7 @@ jobs:
       - name: Extract version from Python file
         id: get_version
         run: |
-          VERSION=$(grep -oP "(?<=__version__ = \"))[^\"]+" frazer/__init__.py)
+          VERSION=$(grep -oP "(?<=__version__ = \")[^\"]+" frazer/__init__.py)
           echo "Version found: $VERSION"
           SEMVER_REGEX="^([0-9]+)\.([0-9]+)\.([0-9]+)(-[0-9A-Za-z-.]+)?(\+[0-9A-Za-z-.]+)?$"
           if [[ ! "$VERSION" =~ $SEMVER_REGEX ]]; then
