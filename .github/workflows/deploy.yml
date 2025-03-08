@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 env:
-  FUNCTION_NAME: frazer
+  LAMBDA_FUNCTION: frazer
 
 jobs:
   deploy:
@@ -26,11 +26,30 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Build frazer
+        run: |
+          pip install -e .
+
+      - name: Extract Version
+        id: get_version
+        run: |
+          VERSION=$(python -c "import frazer; print(frazer.__version__)")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Check version exists
+        run: |
+          git fetch --tags
+          TAGS=$(git tag)
+          if echo "$TAGS" | grep -q "^v$VERSION$"; then
+            echo "Tag v$VERSION exists! Bump the __version__ of the app to proceed with the deploy."
+            exit 1
+          fi
+
       - name: Create Lambda package
         run: |
           python -m pip install --upgrade pip
           make lambda
-          
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -40,19 +59,17 @@ jobs:
 
       - name: Deploy to AWS Lambda
         run: |
-          # Update the Lambda function code
           aws lambda update-function-code \
-            --function-name $FUNCTION_NAME \
+            --function-name $LAMBDA_FUNCTION \
             --zip-file fileb://frazer-lambda.zip \
             --no-cli-pager \
             --query 'FunctionArn' --output text
       
-          # Wait for deployment to complete
           echo "Waiting for Lambda update to complete..."
-          aws lambda wait function-updated --function-name $FUNCTION_NAME
+          aws lambda wait function-updated --function-name $LAMBDA_FUNCTION
       
-          # Get the function status
-          STATUS=$(aws lambda get-function --function-name $FUNCTION_NAME --query 'Configuration.LastUpdateStatus' --output text)
+          # Get the update-function-code status
+          STATUS=$(aws lambda get-function --function-name $LAMBDA_FUNCTION --query 'Configuration.LastUpdateStatus' --output text)
       
           if [[ "$STATUS" == "Successful" ]]; then
             echo "✅ Deployment successful!"
@@ -65,18 +82,11 @@ jobs:
         env: 
           SENTENCE_API_URL: ${{ secrets.SENTENCE_API_URL }}
         run: |
-          pip install -e .
           make build-site
 
       - name: Deploy site
         run: |
           aws s3 cp site/frazer.html s3://${{ secrets.BUCKET }}/frazer.html --acl public-read
-
-      - name: Extract Version
-        id: get_version
-        run: |
-          VERSION=$(python -c "import frazer; print(frazer.__version__)")
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create Git Tag
         run: |
