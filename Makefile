@@ -8,7 +8,7 @@ lambda:
 	rm -rf package/
 
 build-site:
-	python frontend/build.py
+	python webapp/build.py
 
 deploy-site:
 	aws s3 --profile=frazer cp site/frazer.html s3://coisaspublicas/frazer.html --acl public-read
