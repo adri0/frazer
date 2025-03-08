@@ -9,6 +9,9 @@ on:
 permissions:
   contents: write
 
+env:
+  FUNCTION_NAME: frazer
+
 jobs:
   deploy:
     name: Deploy to AWS Lambda
@@ -27,15 +30,34 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           make lambda
-
-      - name: default deploy
-        uses: appleboy/lambda-action@v0.2.0
+          
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          function_name: frazer
-          zip_file: frazer-lambda.zip
+          aws-region:  ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Deploy to AWS Lambda
+        run: |
+          # Update the Lambda function code
+          aws lambda update-function-code \
+            --function-name $FUNCTION_NAME \
+            --zip-file fileb://path/to/deployment.zip
+      
+          # Wait for deployment to complete
+          echo "Waiting for Lambda update to complete..."
+          aws lambda wait function-updated --function-name $FUNCTION_NAME
+      
+          # Get the function status
+          STATUS=$(aws lambda get-function --function-name $FUNCTION_NAME --query 'Configuration.LastUpdateStatus' --output text)
+      
+          if [[ "$STATUS" == "Successful" ]]; then
+            echo "✅ Deployment successful!"
+          else
+            echo "❌ Deployment failed with status: $STATUS"
+            exit 1
+          fi
 
       - name: Build frontend
         env: 
