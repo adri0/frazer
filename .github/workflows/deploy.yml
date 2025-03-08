@@ -43,7 +43,9 @@ jobs:
           # Update the Lambda function code
           aws lambda update-function-code \
             --function-name $FUNCTION_NAME \
-            --zip-file fileb://frazer-lambda.zip
+            --zip-file fileb://frazer-lambda.zip \
+            --no-cli-pager \
+            --query 'FunctionArn' --output text
       
           # Wait for deployment to complete
           echo "Waiting for Lambda update to complete..."
