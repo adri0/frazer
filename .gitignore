@@ -8,3 +8,4 @@ dist/
 .python-version
 .vscode
 .env
+site/
