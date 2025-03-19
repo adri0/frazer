@@ -1,6 +1,6 @@
 lambda:
 	mkdir package
-	pip install -r requirements.txt --target=package/ --platform=manylinux2014_aarch64 --implementation=cp --only-binary=:all:
+	uv pip install -r requirements.txt --target=package/ --python-platform=aarch64-manylinux2014 --only-binary=:all:
 	cp -r frazer package/
 	cp frazer/lambda.py logging.conf package/
 	rm -f frazer-lambda.zip
