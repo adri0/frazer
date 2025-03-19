@@ -33,7 +33,7 @@ jobs:
       - name: Extract Version
         id: get_version
         run: |
-          VERSION=$(uv run --with frazer python -c "import frazer; print(frazer.__version__)")")
+          VERSION=$(uv run --with frazer python -c "import frazer; print(frazer.__version__)")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Check version exists
