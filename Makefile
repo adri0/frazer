@@ -1,6 +1,6 @@
 lambda:
 	mkdir package
-	pip install -r requirements.txt --target=package/ --platform=manylinux2014_aarch64 --implementation=cp --only-binary=:all:
+	uv pip install -r requirements.txt --target=package/ --python-platform=aarch64-manylinux2014 --only-binary=:all:
 	cp -r frazer package/
 	cp frazer/lambda.py logging.conf package/
 	rm -f frazer-lambda.zip
@@ -8,7 +8,7 @@ lambda:
 	rm -rf package/
 
 build-site:
-	python webapp/build.py
+	uv run python webapp/build.py
 
 deploy-site:
 	aws s3 cp site/frazer.html s3://coisaspublicas/frazer.html --acl public-read
