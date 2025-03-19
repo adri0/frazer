@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - use-uv
 
 permissions:
   contents: write
