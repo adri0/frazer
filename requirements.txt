@@ -1,9 +1,0 @@
-click==8.*
-fastapi==0.115.*
-instructor==1.7.2
-Jinja2==3.1.*
-mangum==0.19.*
-openai==1.59.7
-pydantic==2.9.*
-python-dotenv==1.*
-uvicorn==0.34.*

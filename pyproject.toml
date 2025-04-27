@@ -6,7 +6,20 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
-dynamic = ["version", "dependencies"]
+dynamic = ["version"]
+dependencies = [
+    "click==8.*",
+    "fastapi==0.115.*",
+    "instructor==1.7.2",
+    "Jinja2==3.1.*",
+    "mangum==0.19.*",
+    "openai==1.59.7",
+    "pydantic==2.9.*",
+    "python-dotenv==1.*",
+    "pyyaml>=6.0.2",
+    "termcolor>=3.0.1",
+    "uvicorn==0.34.*",
+]
 
 [project.optional-dependencies]
 test = [
@@ -24,4 +37,12 @@ exclude = ["tests*", "webapp"]
 
 [tool.setuptools.dynamic]
 version = {attr = "frazer.__version__"}
-dependencies = {file = ["requirements.txt"]}
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
+
+[tool.uv.pip]
+no-build = true
+no-binary = ["frazer"]
