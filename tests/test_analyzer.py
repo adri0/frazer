@@ -3,13 +3,14 @@ import pytest
 from frazer.analyser import (
     Noun,
     Sentence,
+    SyntacticCategory,
     Verb,
     analyse_sentence,
 )
 
 
 @pytest.fixture
-def mock_openai_client(monkeypatch):
+def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
     """Mock OpenAI client for testing."""
 
     def mock_create(*args, **kwargs):
@@ -24,6 +25,7 @@ def mock_openai_client(monkeypatch):
                     aspect="imperfective",
                     conjugation="first person singular",
                     object="książkę",
+                    syntatic_category=SyntacticCategory.Verb,
                 ),
                 Noun(
                     original_value="książkę",
@@ -31,6 +33,7 @@ def mock_openai_client(monkeypatch):
                     original_value_translation="book",
                     declension_case="accusative",
                     verb_causing_declension="czytać",
+                    syntatic_category=SyntacticCategory.Noun,
                 ),
             ],
         )
@@ -38,7 +41,7 @@ def mock_openai_client(monkeypatch):
     monkeypatch.setattr("frazer.analyser.client.chat.completions.create", mock_create)
 
 
-def test_simple_sentence_analysis(mock_openai_client):
+def test_simple_sentence_analysis(mock_openai_client: None) -> None:
     sentence = analyse_sentence("Czytam książkę.")
 
     assert isinstance(sentence, Sentence)
@@ -49,25 +52,29 @@ def test_simple_sentence_analysis(mock_openai_client):
     assert isinstance(sentence.words[1], Noun)
 
 
-def test_sentence_structure(mock_openai_client):
+def test_sentence_structure(mock_openai_client: None) -> None:
     sentence = analyse_sentence("Czytam książkę.")
 
     verb = sentence.words[0]
+    assert isinstance(verb, Verb)
     assert verb.original_value == "czytam"
     assert verb.aspect == "imperfective"
     assert verb.object == "książkę"
 
     noun = sentence.words[1]
+    assert isinstance(noun, Noun)
     assert noun.original_value == "książkę"
     assert noun.declension_case == "accusative"
     assert noun.verb_causing_declension == "czytać"
 
 
-def test_empty_sentence():
+@pytest.mark.parametrize(
+    "invalid_input",
+    [
+        "",
+        "   ",
+    ],
+)
+def test_invalid_input(invalid_input: str) -> None:
     with pytest.raises(ValueError):
-        analyse_sentence("")
-
-
-def test_whitespace_only_sentence():
-    with pytest.raises(ValueError):
-        analyse_sentence("   ")
+        analyse_sentence(invalid_input)
