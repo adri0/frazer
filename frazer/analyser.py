@@ -55,7 +55,7 @@ class Other(Word):
     pass
 
 
-class Sentence(BaseModel):
+class AnalysedSentence(BaseModel):
     text: str
     translation: str
     words: list[Noun | Verb | Preposition | Adjective | Other]
@@ -73,13 +73,13 @@ client = instructor.from_openai(OpenAI())
 categories = ",".join(SyntacticCategory.__members__.keys())
 
 
-def analyse_sentence(input_sentence: str) -> Sentence:
+def analyse_sentence(input_sentence: str) -> AnalysedSentence:
     input_clean = input_sentence.strip()
     if not input_clean:
         raise ValueError("Sentence cannot be empty")
-    sentence: Sentence = client.chat.completions.create(
+    sentence: AnalysedSentence = client.chat.completions.create(
         model="gpt-4o-mini",
-        response_model=Sentence,
+        response_model=AnalysedSentence,
         temperature=0.1,
         messages=[
             {
@@ -102,8 +102,3 @@ def analyse_sentence(input_sentence: str) -> Sentence:
         ],
     )
     return sentence
-
-    # "Provide a syntatical response for each word in the sentence (consider that some words might consist of 1 letter). "
-
-
-#

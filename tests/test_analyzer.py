@@ -1,8 +1,8 @@
 import pytest
 
 from frazer.analyser import (
+    AnalysedSentence,
     Noun,
-    Sentence,
     SyntacticCategory,
     Verb,
     analyse_sentence,
@@ -14,7 +14,7 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
     """Mock OpenAI client for testing."""
 
     def mock_create(*args, **kwargs):
-        return Sentence(
+        return AnalysedSentence(
             text="Czytam książkę.",
             translation="I am reading a book.",
             words=[
@@ -44,7 +44,7 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_simple_sentence_analysis(mock_openai_client: None) -> None:
     sentence = analyse_sentence("Czytam książkę.")
 
-    assert isinstance(sentence, Sentence)
+    assert isinstance(sentence, AnalysedSentence)
     assert sentence.text == "Czytam książkę."
     assert sentence.translation == "I am reading a book."
     assert len(sentence.words) == 2

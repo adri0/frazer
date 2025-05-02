@@ -1,10 +1,10 @@
 # Frazer
 
-Frazer is an-LLM powered application to perform syntactical analysis of sentences in the Polish language. It analyzes each word in a sentence, categorizing it by its syntactic function and providing additional linguistic details.
+Frazer is an LLM-powered application for performing syntactical analysis of sentences in the Polish language. Sentences are categorized word by word, providing their syntatic function and additional linguistic details.
 
 ## Features
 
-- **Word-by-Word Analysis**: Each word in the sentence is categorized into syntactic categories such as nouns, verbs, adjectives, etc.
+- **Word-by-Word Analysis**: Each word in the sentence is categorized into syntactic categories such as nouns, verbs, adjectives, pronouns, etc.
 - **Translation**: Provides an English translation of the input Polish sentence.
 - **Linguistic Details**:
   - For verbs: Identifies the aspect (perfective or imperfective) and conjugation, and specifies the object it acts upon.
@@ -41,5 +41,5 @@ from frazer.analyser import analyse_sentence
 
 sentence = "Kocham piękne kwiaty."
 result = analyse_sentence(sentence)
-print(result.json(indent=2))
+print(result.model_dump())
 ```
