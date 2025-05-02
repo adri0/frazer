@@ -85,7 +85,7 @@ def main(input: Path, output: Path) -> None:
         try:
             return analyse_sentence(sentence)
         except Exception as e:
-            print(f"Error analyzing sentence '{sentence}': {e}")
+            click.echo(f"Error analyzing sentence '{sentence}': {e}")
             return None
 
     with ThreadPoolExecutor(max_workers=4) as executor:
