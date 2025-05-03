@@ -1,0 +1,80 @@
+sentence_id,word_original_value,word_root,word_original_value_translation,word_syntactic_category,word_aspect,word_conjugation,word_object,word_declension_case,word_verb_causing_declension
+1,Kot,kot,cat,noun,,,,nominative,
+1,pije,pić,drinks,verb,imperfective,3rd person singular,wodę,,
+1,wodę,woda,water,noun,,,,accusative,pije
+2,Maria,Maria,Maria,noun,,,,nominative,
+2,zjadła,zjeść,ate,verb,perfective,3rd person singular feminine,zupę,,
+2,zupę,zupa,soup,noun,,,,accusative,zjadła
+3,Nie,nie,No,particle,,,,,
+3,ma,mieć,has,verb,imperfective,3rd person singular,kota,,
+3,kota,kot,cat,noun,,,,genitive,ma
+4,Lubię,lubić,I like,verb,imperfective,1st person singular,zapach,,
+4,zapach,zapach,smell,noun,,,,accusative,lubić
+4,kwiatów,kwiat,flowers,noun,,,,genitive,zapach
+4,na,na,in,preposition,,,,,
+4,wiosnę,wiosna,spring,noun,,,,accusative,na
+5,Daję,dać,I give,verb,imperfective,1st person singular,mleko,,
+5,kotu,kot,to the cat,noun,,,,dative,daję
+5,mleko,mleko,milk,noun,,,,accusative,daję
+6,Pomagam,pomagać,I help,verb,imperfective,1st person singular,dziewczynie,,
+6,dziewczynie,dziewczyna,the girl,noun,,,,dative,Pomagam
+7,Widzę,widzieć,I see,verb,imperfective,1st person singular,chłopca,,
+7,chłopca,chłopiec,boy,noun,,,,accusative,Widzę
+8,Mam,mać,I have,verb,perfective,1st person singular,komputer,,
+8,komputer,komputer,computer,noun,,,,nominative,Mam
+9,Jestem,być,I am,verb,imperfective,1st person singular,,,
+9,z,z,with,preposition,,,,,
+9,kotem,kot,cat,noun,,,,instrumental,być
+10,Idę,iść,I am going,verb,imperfective,1st person singular,,,
+10,na,na,for,preposition,,,,,
+10,spacer,spacer,walk,noun,,,,accusative,iść
+10,z,z,with,preposition,,,,,
+10,Moniką,Monika,Monika,noun,,,,instrumental,z
+11,Mówię,mówić,I am talking,verb,imperfective,1st person singular,,,
+11,o,o,about,preposition,,,,,
+11,kocie,kot,cat,noun,,,,locative,o
+12,Dzieci,dzieci,children,noun,,,,nominative,
+12,bawiły,bawić,were playing,verb,imperfective,3rd person plural,,,
+12,się,się,(reflexive pronoun),pronoun,,,,,
+12,na,na,in/on,preposition,,,,,
+12,podwórku,podwórko,yard,noun,,,,locative,na
+13,Kocie,kot,Cat,noun,,,,locative,
+14,Marku,Mark,Mark,noun,,,,vocative,
+15,Nie,nie,not,particle,,,,,
+15,mogę,móc,can,verb,imperfective,1st person singular,,,
+15,znaleźć,znaleźć,to find,verb,,,,,
+15,mojego,mój,my,pronoun,,,,,
+15,telefonu,telefon,phone,noun,,,,genitive,znaleźć
+16,Lubię,lubić,I like,verb,imperfective,1st person singular,kawę,,
+16,kawę,kawa,coffee,noun,,,,accusative,lubić
+16,z,z,with,preposition,,,,,
+16,cukrem,cukier,sugar,noun,,,,instrumental,z
+17,Rozmawiamy,rozmawiać,We are talking,verb,imperfective,1st person plural,,,
+17,o,o,about,preposition,,,,,
+17,książce,książka,book,noun,,,,locative,rozmawiać
+18,Oddałam,oddać,I returned,verb,perfective,1st person singular,,,
+18,książkę,książka,book,noun,,,,accusative,Oddałam
+18,Piotrkowi,Piotrek,Piotr,noun,,,,dative,Oddałam
+19,Ona,ona,She,pronoun,,,,,
+19,bierze,brać,is taking,verb,imperfective,3rd person singular,kota,,
+19,kota,kot,the cat,noun,,,,accusative,bierze
+19,na,na,in,preposition,,,,,
+19,ręce,ręka,arms,noun,,,,locative,na
+20,W,w,In,preposition,,,,,
+20,terenie,teren,area,noun,,,,locative,none
+20,górzystym,górzysty,hilly,adjective,,,,locative,none
+20,dla,dla,for,preposition,,,,,
+20,zmniejszenia,zmniejszenie,reduction,noun,,,,genitive,none
+20,erozji,erozja,erosion,noun,,,,genitive,none
+20,długie,długi,long,adjective,,,,nominative,none
+20,boki,bok,sides,noun,,,,nominative,none
+20,pola,pole,field,noun,,,,genitive,none
+20,powinny,powinien,should,verb,imperfective,3rd person plural,boki,,
+20,być,być,to be,verb,imperfective,infinitive,,,
+20,wyznaczane,wyznaczać,designated,verb,imperfective,passive participle,boki,,
+20,wzdłuż,wzdłuż,along,preposition,,,,,
+20,warstwic,warstwica,contour lines,noun,,,,genitive,none
+20,prostopadle,prostopadły,perpendicular,adverb,,,,,
+20,do,do,to,preposition,,,,,
+20,spadku,spadek,slope,noun,,,,genitive,none
+20,terenu,teren,terrain,noun,,,,genitive,none

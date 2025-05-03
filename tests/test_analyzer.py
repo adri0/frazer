@@ -25,7 +25,7 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
                     aspect="imperfective",
                     conjugation="first person singular",
                     object="książkę",
-                    syntatic_category=SyntacticCategory.Verb,
+                    syntatic_category=SyntacticCategory.verb,
                 ),
                 Noun(
                     original_value="książkę",
@@ -33,9 +33,10 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
                     original_value_translation="book",
                     declension_case="accusative",
                     verb_causing_declension="czytać",
-                    syntatic_category=SyntacticCategory.Noun,
+                    syntatic_category=SyntacticCategory.noun,
                 ),
             ],
+            grammatically_correct=True,
         )
 
     monkeypatch.setattr("frazer.analyser.client.chat.completions.create", mock_create)

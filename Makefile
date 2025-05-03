@@ -21,4 +21,4 @@ lambda-url:
 		grep -o 'arn:aws:execute-api:[^"]*' | sed -E 's#arn:aws:execute-api:([^:]+):[^:]+:([^/]+)/([^/]+)/([^"]+)#https://\2.execute-api.\1.amazonaws.com/\3/\4#'
 
 batch-analyse:
-	python evaluation/batch_analyse.py --input=evaluation/input_sentences.csv --output=evaluation/analysed_sentences.csv
+	python evaluation/batch_analyse.py --input=evaluation/input_sentences.csv --output=evaluation/output/analysed_sentences.csv

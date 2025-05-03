@@ -26,6 +26,10 @@ test = [
     "pytest==8.*",
     "pytest-cov",
 ]
+eval = [
+    "pandas>=2.2.3",
+    "scikit-learn>=1.6.1",
+]
 
 [build-system]
 requires = ["setuptools", "wheel"]
@@ -41,6 +45,11 @@ version = {attr = "frazer.__version__"}
 [dependency-groups]
 dev = [
     "pytest>=8.3.5",
+    "pytest-cov>=6.0.0",
+]
+eval = [
+    "pandas>=2.2.3",
+    "scikit-learn>=1.6.1",
 ]
 
 [tool.uv.pip]

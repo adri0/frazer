@@ -7,15 +7,15 @@ from pydantic import BaseModel, Field
 
 
 class SyntacticCategory(str, Enum):
-    Noun = "Noun"
-    Pronoun = "Pronoun"
-    Verb = "Verb"
-    Adjective = "Adjective"
-    Adverb = "Adverb"
-    Preposition = "Preposition"
-    Conjunction = "Conjunction"
-    Interjection = "Interjection"
-    Particle = "Particle"
+    noun = "noun"
+    pronoun = "pronoun"
+    verb = "verb"
+    adjective = "adjective"
+    adverb = "adverb"
+    preposition = "preposition"
+    conjunction = "conjunction"
+    interjection = "interjection"
+    particle = "particle"
 
 
 class Word(BaseModel):
@@ -26,7 +26,7 @@ class Word(BaseModel):
 
 
 class Verb(Word):
-    syntatic_category: Literal[SyntacticCategory.Verb]
+    syntatic_category: Literal[SyntacticCategory.verb]
     aspect: Literal["perfective", "imperfective"]
     conjugation: str
     object: Optional[str] = Field(
@@ -36,19 +36,19 @@ class Verb(Word):
 
 
 class Adjective(Word):
-    syntatic_category: Literal[SyntacticCategory.Adjective]
+    syntatic_category: Literal[SyntacticCategory.adjective]
     declension_case: str
     verb_causing_declension: str
 
 
 class Noun(Word):
-    syntatic_category: Literal[SyntacticCategory.Noun]
+    syntatic_category: Literal[SyntacticCategory.noun]
     declension_case: str
     verb_causing_declension: str
 
 
 class Preposition(Word):
-    syntatic_category: Literal[SyntacticCategory.Preposition]
+    syntatic_category: Literal[SyntacticCategory.preposition]
 
 
 class Other(Word):
@@ -59,7 +59,8 @@ class AnalysedSentence(BaseModel):
     text: str
     translation: str
     words: list[Noun | Verb | Preposition | Adjective | Other]
-    remarks: Optional[str] = Field(
+    grammatically_correct: bool
+    remarks: str | None = Field(
         description=(
             "Any remarks about the sentence that could be relevant to the student. "
             "For example, if the sentence contains a mispelling or grammar mistake."
@@ -92,8 +93,8 @@ def analyse_sentence(input_sentence: str) -> AnalysedSentence:
                     f"Do a syntatical analysis of the sentence '{input_clean}'. "
                     f"Choose a syntactical category for each word amonth the options: {categories} \n"
                     "Provide the sentence translation to English. "
-                    "If a word is a verb, indicate the verb's aspect and what declension case it enforces (if any). "
-                    "If a word is a noun, numeral or adjective, provide its declension case. "
+                    # "If a word is a verb, indicate the verb's aspect and what declension case it enforces (if any). "
+                    # "If a word is a noun, numeral or adjective, provide its declension case. "
                     "If the word is of a different syntatical function, label the word as 'other' and provide its syntactical function. "
                     "Any remarks about the sentence that could be relevant to the student: "
                     "for example, point out a potential mispelling or grammar mistake."
