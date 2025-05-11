@@ -38,7 +38,9 @@ def read_input_sentences(input_path: Path) -> list[InputRecord]:
     return input_records
 
 
-def batch_analyse(input_records: list[InputRecord]) -> list[AnalysedSentenceRecord]:
+def analyse_input_records(
+    input_records: list[InputRecord],
+) -> list[AnalysedSentenceRecord]:
     """
     Batch analyse a list of input records by processing their sentences in parallel.
 
@@ -117,6 +119,19 @@ def save_analysed_sentences(
                 )
 
 
+def batch_analyse(input: Path, output: Path) -> None:
+    """
+    Analyze sentences from an input CSV file and save results to an output CSV file.
+
+    Args:
+        input (Path): Path to the input CSV file.
+        output (Path): Path to the output CSV file.
+    """
+    input_records = read_input_sentences(input_path=input)
+    analysed_records = analyse_input_records(input_records=input_records)
+    save_analysed_sentences(analysed_records=analysed_records, output_file=output)
+
+
 @click.command()
 @click.option(
     "--input",
@@ -132,16 +147,9 @@ def save_analysed_sentences(
 )
 def main(input: Path, output: Path) -> None:
     """
-    Command-line interface for analyzing sentences from a specified
-    input CSV file and saving results to a CSV file.
-
-    Args:
-        input (Path): Path to the input CSV file.
-        output (Path): Path to the output CSV file.
+    Analyze sentences from an input CSV file and save results to an output CSV file.
     """
-    input_records = read_input_sentences(input_path=input)
-    analysed_records = batch_analyse(input_records=input_records)
-    save_analysed_sentences(analysed_records=analysed_records, output_file=output)
+    batch_analyse(input=input, output=output)
 
 
 if __name__ == "__main__":

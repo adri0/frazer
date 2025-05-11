@@ -5,14 +5,14 @@ sentence_id,word_original_value,word_root,word_original_value_translation,word_s
 2,Maria,Maria,Maria,noun,,,,,
 2,zjadła,zjeść,ate,verb,perfective,3rd person singular feminine,,,
 2,zupę,zupa,soup,noun,,,,accusative,zjadła
-3,Nie,nie,No,particle,,,,,
-3,ma,ma,has,verb,imperfective,3rd person singular,,,
+3,Nie,nie,No,adverb,,,,,
+3,ma,mieć,has,verb,imperfective,3rd person singular,,,
 3,kota,kot,cat,noun,,,,genitive,ma
 4,Lubię,lubić,I like,verb,imperfective,1st person singular,,,
 4,zapach,zapach,the smell,noun,,,,accusative,lubić
-4,kwiatów,kwiat,of flowers,noun,,,,genitive,none
+4,kwiatów,kwiat,of flowers,noun,,,,genitive,zapach
 4,na,na,in,preposition,,,,,
-4,wiosnę,wiosna,spring,noun,,,,accusative,none
+4,wiosnę,wiosna,spring,noun,,,,accusative,na
 5,Daję,dać,I give,verb,imperfective,1st person singular,,,
 5,kotu,kot,to the cat,noun,,,,dative,dać
 5,mleko,mleko,milk,noun,,,,nominative,dać
@@ -21,7 +21,7 @@ sentence_id,word_original_value,word_root,word_original_value_translation,word_s
 7,Widzę,widzieć,I see,verb,perfective,1st person singular,,,
 7,chłopca,chłopiec,a boy,noun,,,,accusative,widzieć
 8,Mam,mać,I have,verb,imperfective,1st person singular,,,
-8,komputer,komputer,computer,noun,,,,nominative,mam
+8,komputer,komputer,computer,noun,,,,accusative,mam
 9,Jestem,być,I am,verb,imperfective,1st person singular,,,
 9,z,z,with,preposition,,,,,
 9,kotem,kot,cat,noun,,,,instrumental,być
@@ -34,13 +34,13 @@ sentence_id,word_original_value,word_root,word_original_value_translation,word_s
 11,o,o,about,preposition,,,,,
 11,kocie,kot,the cat,noun,,,,locative,mówić
 12,Dzieci,dzieci,children,noun,,,,nominative,
-12,bawiły,bawić,were playing,verb,imperfective,3rd person plural,,,
+12,bawiły,bawić,played,verb,imperfective,3rd person plural,,,
 12,się,się,(reflexive pronoun),pronoun,,,,,
 12,na,na,in/on,preposition,,,,,
 12,podwórku,podwórko,yard,noun,,,,locative,na
 13,Kocie,kot,Cat (in the vocative case),noun,,,,vocative,
 14,Marku,Mark,Mark,noun,,,,vocative,
-15,Nie,nie,not,particle,,,,,
+15,Nie,nie,No,particle,,,,,
 15,mogę,móc,can,verb,imperfective,1st person singular,,,
 15,znaleźć,znaleźć,find,verb,perfective,infinitive,,,
 15,mojego,mój,my,adjective,,,,genitive,znaleźć
@@ -53,28 +53,10 @@ sentence_id,word_original_value,word_root,word_original_value_translation,word_s
 17,o,o,about,preposition,,,,,
 17,książce,książka,book,noun,,,,locative,rozmawiać
 18,Oddałam,oddać,I returned,verb,perfective,1st person singular,,,
-18,książkę,książka,the book,noun,,,,accusative,Oddałam
-18,Piotrkowi,Piotrek,to Piotr,noun,,,,dative,Oddałam
+18,książkę,książka,the book,noun,,,,accusative,oddać
+18,Piotrkowi,Piotrek,to Piotr,noun,,,,dative,oddać
 19,Ona,on,She,pronoun,,,,,
-19,bierze,brać,takes,verb,imperfective,3rd person singular,,,
+19,bierze,brać,is taking,verb,imperfective,3rd person singular,,,
 19,kota,kot,the cat,noun,,,,accusative,bierze
 19,na,na,in,preposition,,,,,
 19,ręce,ręka,arms,noun,,,,locative,na
-20,W,w,In,preposition,,,,,
-20,terenie,teren,area,noun,,,,locative,w
-20,górzystym,górzysty,hilly,adjective,,,,locative,w
-20,dla,dla,for,preposition,,,,,
-20,zmniejszenia,zmniejszenie,reduction,noun,,,,genitive,dla
-20,erozji,erozja,erosion,noun,,,,genitive,dla
-20,długie,długi,long,adjective,,,,nominative,should
-20,boki,bok,sides,noun,,,,nominative,should
-20,pola,pole,field,noun,,,,genitive,of
-20,powinny,powinien,should,verb,imperfective,3rd person plural,,,
-20,być,być,to be,verb,imperfective,infinitive,,,
-20,wyznaczane,wyznaczać,marked,verb,imperfective,passive voice,,,
-20,wzdłuż,wzdłuż,along,preposition,,,,,
-20,warstwic,warstwica,contour lines,noun,,,,genitive,along
-20,prostopadle,prostopadły,perpendicular,adverb,,,,,
-20,do,do,to,preposition,,,,,
-20,spadku,spadek,slope,noun,,,,genitive,to
-20,terenu,teren,terrain,noun,,,,genitive,of
