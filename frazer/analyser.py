@@ -78,26 +78,31 @@ def analyse_sentence(input_sentence: str) -> AnalysedSentence:
     input_clean = input_sentence.strip()
     if not input_clean:
         raise ValueError("Sentence cannot be empty")
+    # noqa: E501
     sentence: AnalysedSentence = client.chat.completions.create(
         model="gpt-4o-mini",
         response_model=AnalysedSentence,
-        temperature=0.1,
+        temperature=0.0,
+        top_p=1,
         messages=[
             {
                 "role": "system",
-                "content": "You're a Polish language teacher with the goal of explaining a sentence word by word.",
+                "content": "You're a Polish language teacher with the goal of explaining a sentence word by word.",  # noqa: E501
             },
             {
                 "role": "user",
-                "content": (
+                "content": (  # noqa: E501
                     f"Do a syntatical analysis of the sentence '{input_clean}'. "
-                    f"Choose a syntactical category for each word amonth the options: {categories} \n"
+                    "Choose a syntactical category for each word amonth the options: "
+                    f"{categories}\n"
                     "Provide the sentence translation to English. "
-                    # "If a word is a verb, indicate the verb's aspect and what declension case it enforces (if any). "
-                    # "If a word is a noun, numeral or adjective, provide its declension case. "
-                    "If the word is of a different syntatical function, label the word as 'other' and provide its syntactical function. "
-                    "Any remarks about the sentence that could be relevant to the student: "
-                    "for example, point out a potential mispelling or grammar mistake."
+                    "If a word is a verb, indicate the verb's aspect and what declension case it enforces (if any). "  # noqa: E501
+                    "If a word is a noun, numeral or adjective, provide its declension case. "  # noqa: E501
+                    "If the word is of a different syntatical function, label "
+                    "the word as 'other' and provide its syntactical function. "
+                    "Any remarks about the sentence that could be relevant to "
+                    "the student: for example, point out a potential mispelling "
+                    "or grammar mistake."
                 ),
             },
         ],

@@ -1,10 +1,7 @@
-from datetime import datetime
-from pathlib import Path
-
 import click
 
 from evaluation.tools.batch_analyse import main as batch_analyse_main
-from evaluation.tools.evaluate import generate_report, generate_report_cli
+from evaluation.tools.evaluate import generate_report_cli
 
 
 @click.group()

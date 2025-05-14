@@ -33,8 +33,8 @@ def calculate_metrics(baseline_path: Path, new_path: Path) -> dict[str, dict]:
     assert list(baseline.columns) == list(new.columns), "CSV column mismatch"
     results = {}
     for column in EVALUTION_DIMENSIONS:
-        baseline[column] = baseline[column].fillna("none")
-        new[column] = new[column].fillna("none")
+        baseline[column] = baseline[column].fillna("N/A")
+        new[column] = new[column].fillna("N/A")
         report = classification_report(
             baseline[column], new[column], output_dict=True, zero_division=0
         )
@@ -49,9 +49,26 @@ def calculate_metrics(baseline_path: Path, new_path: Path) -> dict[str, dict]:
     return results
 
 
-if __name__ == "__main__":
-    baseline_path = Path("evaluation/output/baseline.csv")
-    new_path = Path("evaluation/output/new.csv")
-    metrics = calculate_metrics(baseline_path, new_path)
-    metrics_df = pd.DataFrame.from_dict(metrics, orient="index")
-    print(metrics_df)
+def diff_datasets(baseline_path: Path, new_path: Path) -> pd.DataFrame:
+    """
+    Generate a diff DataFrame for each column and row between baseline and new datasets.
+    For each cell, output only values that don't match.
+
+    Args:
+        baseline_path (Path): Path to the baseline CSV file.
+        new_path (Path): Path to the new CSV file.
+
+    Returns:
+        pd.DataFrame: DataFrame with '-' for matches and new value for differences.
+    """
+    baseline = pd.read_csv(baseline_path)
+    new = pd.read_csv(new_path)
+    assert list(baseline.columns) == list(new.columns), "CSV column mismatch"
+    assert len(baseline) == len(new), "CSV row count mismatch"
+    diff = new.copy()
+    for col in EVALUTION_DIMENSIONS:
+        diff[col] = [
+            None if baseline.at[i, col] == new.at[i, col] else new.at[i, col]
+            for i in range(len(baseline))
+        ]
+    return diff

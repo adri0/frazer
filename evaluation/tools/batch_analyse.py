@@ -27,7 +27,8 @@ def read_input_sentences(input_path: Path) -> list[InputRecord]:
             columns "id" (integer) and "sentence" (string).
 
     Returns:
-        list[InputRecord]: A list of InputRecord objects, each containing an "id" and a "sentence".
+        list[InputRecord]: A list of InputRecord objects, each containing an
+        "id" and a "sentence".
     """
     input_records = []
     with input_path.open("r", encoding="utf-8") as file:
@@ -84,6 +85,7 @@ def save_analysed_sentences(
     """
     header = [
         "sentence_id",
+        "word_pos",
         "word_original_value",
         "word_root",
         "word_original_value_translation",
@@ -100,13 +102,16 @@ def save_analysed_sentences(
         writer.writeheader()
 
         for sentence_id, analysed_sentence in analysed_records:
-            for word in analysed_sentence.words:
+            for pos, word in enumerate(analysed_sentence.words):
                 writer.writerow(
                     {
                         "sentence_id": sentence_id,
+                        "word_pos": pos,
                         "word_original_value": word.original_value,
                         "word_root": word.root,
-                        "word_original_value_translation": word.original_value_translation,
+                        "word_original_value_translation": (
+                            word.original_value_translation
+                        ),
                         "word_syntactic_category": word.syntatic_category,
                         "word_aspect": getattr(word, "aspect", None),
                         "word_conjugation": getattr(word, "conjugation", None),
