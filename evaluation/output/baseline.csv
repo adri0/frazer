@@ -1,0 +1,80 @@
+sentence_id,word_pos,word_original_value,word_root,word_original_value_translation,word_syntactic_category,word_aspect,word_conjugation,word_object,word_declension_case,word_verb_causing_declension
+1,0,Kot,kot,cat,noun,,,,nominative,
+1,1,pije,pić,drinks,verb,imperfective,3rd person singular,,,
+1,2,wodę,woda,water,noun,,,,accusative,pije
+2,0,Maria,Maria,Maria,noun,,,,nominative,
+2,1,zjadła,zjeść,ate,verb,perfective,3rd person singular feminine,zupę,,
+2,2,zupę,zupa,soup,noun,,,,accusative,zjadła
+3,0,Nie,nie,No,particle,,,,,
+3,1,ma,ma,has,verb,imperfective,3rd person singular,kota,,
+3,2,kota,kot,cat,noun,,,,genitive,ma
+4,0,Lubię,lubić,I like,verb,imperfective,1st person singular,,,
+4,1,zapach,zapach,the smell,noun,,,,accusative,lubić
+4,2,kwiatów,kwiat,of flowers,noun,,,,genitive,zapach
+4,3,na,na,in,preposition,,,,,
+4,4,wiosnę,wiosna,spring,noun,,,,accusative,na
+5,0,Daję,dać,I give,verb,imperfective,1st person singular,mleko,,
+5,1,kotu,kot,to the cat,noun,,,,dative,daję
+5,2,mleko,mleko,milk,noun,,,,nominative,daję
+6,0,Pomagam,pomagać,I help,verb,imperfective,1st person singular,dziewczynie,,
+6,1,dziewczynie,dziewczyna,the girl,noun,,,,dative,pomagam
+7,0,Widzę,widzieć,I see,verb,imperfective,1st person singular,chłopca,,
+7,1,chłopca,chłopiec,boy,noun,,,,accusative,Widzę
+8,0,Mam,mać,I have,verb,perfective,1st person singular,komputer,,
+8,1,komputer,komputer,computer,noun,,,,accusative,Mam
+9,0,Jestem,być,I am,verb,imperfective,1st person singular,,,
+9,1,z,z,with,preposition,,,,,
+9,2,kotem,kot,cat,noun,,,,instrumental,być
+10,0,Idę,iść,I am going,verb,imperfective,1st person singular,,,
+10,1,na,na,for,preposition,,,,,
+10,2,spacer,spacer,walk,noun,,,,accusative,iść
+10,3,z,z,with,preposition,,,,,
+10,4,Moniką,Monika,Monika,noun,,,,instrumental,z
+11,0,Mówię,mówić,I am talking,verb,imperfective,1st person singular,,,
+11,1,o,o,about,preposition,,,,,
+11,2,kocie,kot,cat,noun,,,,locative,o
+12,0,Dzieci,dzieci,children,noun,,,,nominative,
+12,1,bawiły,bawić,were playing,verb,imperfective,3rd person plural,,,
+12,2,się,się,(reflexive pronoun),pronoun,,,,,
+12,3,na,na,in/on,preposition,,,,,
+12,4,podwórku,podwórko,yard,noun,,,,locative,
+13,0,Kocie,kot,Cat,noun,,,,locative,
+14,0,Marku,Mark,Mark,noun,,,,vocative,
+15,0,Nie,nie,not,particle,,,,,
+15,1,mogę,móc,can,verb,imperfective,1st person singular,,,
+15,2,znaleźć,znaleźć,find,verb,,,,,
+15,3,mojego,mój,my,pronoun,,,,,
+15,4,telefonu,telefon,phone,noun,,,,genitive,znaleźć
+16,0,Lubię,lubić,I like,verb,imperfective,1st person singular,kawę,,
+16,1,kawę,kawa,coffee,noun,,,,accusative,Lubię
+16,2,z,z,with,preposition,,,,,
+16,3,cukrem,cukier,sugar,noun,,,,instrumental,z
+17,0,Rozmawiamy,rozmawiać,We are talking,verb,imperfective,1st person plural,,,
+17,1,o,o,about,preposition,,,,,
+17,2,książce,książka,book,noun,,,,locative,rozmawiać
+18,0,Oddałam,oddać,I gave,verb,perfective,1st person singular,,,
+18,1,książkę,książka,the book,noun,,,,accusative,Oddałam
+18,2,Piotrkowi,Piotrek,to Piotr,noun,,,,dative,Oddałam
+19,0,Ona,ona,She,pronoun,,,,,
+19,1,bierze,brać,is taking,verb,imperfective,3rd person singular,kota,,
+19,2,kota,kot,cat,noun,,,,accusative,bierze
+19,3,na,na,in,preposition,,,,,
+19,4,ręce,ręka,arms,noun,,,,locative,na
+20,0,W,w,In,preposition,,,,,
+20,1,terenie,teren,area,noun,,,,locative,none
+20,2,górzystym,górzysty,hilly,adjective,,,,locative,none
+20,3,dla,dla,for,preposition,,,,,
+20,4,zmniejszenia,zmniejszenie,reduction,noun,,,,genitive,none
+20,5,erozji,erozja,erosion,noun,,,,genitive,none
+20,6,długie,długi,long,adjective,,,,nominative,none
+20,7,boki,bok,sides,noun,,,,nominative,none
+20,8,pola,pole,field,noun,,,,genitive,none
+20,9,powinny,powinien,should,verb,imperfective,3rd person plural,boki,,
+20,10,być,być,to be,verb,imperfective,infinitive,,,
+20,11,wyznaczane,wyznaczać,marked,verb,imperfective,passive participle,boki,,
+20,12,wzdłuż,wzdłuż,along,preposition,,,,,
+20,13,warstwic,warstwica,contour lines,noun,,,,genitive,none
+20,14,prostopadle,prostopadły,perpendicular,adverb,,,,,
+20,15,do,do,to,preposition,,,,,
+20,16,spadku,spadek,slope,noun,,,,genitive,none
+20,17,terenu,teren,terrain,noun,,,,genitive,none

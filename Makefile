@@ -11,7 +11,7 @@ build-site:
 	uv run python webapp/build.py
 
 deploy-site:
-	aws s3 cp site/frazer.html s3://coisaspublicas/frazer.html --acl public-read
+	aws s3 cp site/frazer.html s3://frazerapp.eu/frazer.html --acl public-read
 
 deploy-lambda:
 	aws lambda update-function-code --function-name frazer --zip-file fileb://frazer-lambda.zip
@@ -19,3 +19,6 @@ deploy-lambda:
 lambda-url:
 	aws lambda get-policy --function-name frazer --query "Policy" --output text | \
 		grep -o 'arn:aws:execute-api:[^"]*' | sed -E 's#arn:aws:execute-api:([^:]+):[^:]+:([^/]+)/([^/]+)/([^"]+)#https://\2.execute-api.\1.amazonaws.com/\3/\4#'
+
+evaluation:
+	python -m evaluation generate-report

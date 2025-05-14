@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from frazer.analyser import Sentence, analyse_sentence
+from frazer.analyser import AnalysedSentence, analyse_sentence
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +16,7 @@ class InputPayload(BaseModel):
 
 
 class OutputPayload(BaseModel):
-    sentence: Sentence
+    sentence: AnalysedSentence
 
 
 # Add CORS middleware

@@ -5,7 +5,7 @@ authors = [
     { name = "Adriano Oliveira" }
 ]
 readme = "README.md"
-requires-python = ">=3.13,<3.14"
+requires-python = ">=3.13"
 dynamic = ["version"]
 dependencies = [
     "click==8.*",
@@ -26,6 +26,10 @@ test = [
     "pytest==8.*",
     "pytest-cov",
 ]
+eval = [
+    "pandas>=2.2.3",
+    "scikit-learn>=1.6.1",
+]
 
 [build-system]
 requires = ["setuptools", "wheel"]
@@ -33,16 +37,25 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = ["frazer*"]
-exclude = ["tests*", "webapp"]
 
 [tool.setuptools.dynamic]
 version = {attr = "frazer.__version__"}
 
 [dependency-groups]
 dev = [
+    "pandas-stubs>=2.2.3.250308",
     "pytest>=8.3.5",
+    "pytest-cov>=6.0.0",
+    "types-pyyaml>=6.0.12.20250402",
+]
+eval = [
+    "pandas>=2.2.3",
+    "scikit-learn>=1.6.1",
 ]
 
 [tool.uv.pip]
 no-build = true
 no-binary = ["frazer"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F"]

@@ -1,8 +1,8 @@
 import pytest
 
 from frazer.analyser import (
+    AnalysedSentence,
     Noun,
-    Sentence,
     SyntacticCategory,
     Verb,
     analyse_sentence,
@@ -14,7 +14,7 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
     """Mock OpenAI client for testing."""
 
     def mock_create(*args, **kwargs):
-        return Sentence(
+        return AnalysedSentence(
             text="Czytam książkę.",
             translation="I am reading a book.",
             words=[
@@ -25,7 +25,7 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
                     aspect="imperfective",
                     conjugation="first person singular",
                     object="książkę",
-                    syntatic_category=SyntacticCategory.Verb,
+                    syntatic_category=SyntacticCategory.verb,
                 ),
                 Noun(
                     original_value="książkę",
@@ -33,9 +33,10 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
                     original_value_translation="book",
                     declension_case="accusative",
                     verb_causing_declension="czytać",
-                    syntatic_category=SyntacticCategory.Noun,
+                    syntatic_category=SyntacticCategory.noun,
                 ),
             ],
+            grammatically_correct=True,
         )
 
     monkeypatch.setattr("frazer.analyser.client.chat.completions.create", mock_create)
@@ -44,7 +45,7 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_simple_sentence_analysis(mock_openai_client: None) -> None:
     sentence = analyse_sentence("Czytam książkę.")
 
-    assert isinstance(sentence, Sentence)
+    assert isinstance(sentence, AnalysedSentence)
     assert sentence.text == "Czytam książkę."
     assert sentence.translation == "I am reading a book."
     assert len(sentence.words) == 2
