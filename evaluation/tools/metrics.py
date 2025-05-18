@@ -4,14 +4,15 @@ import pandas as pd
 from sklearn.metrics import classification_report
 
 EVALUTION_DIMENSIONS = [
-    "word_root",
-    "word_original_value_translation",
-    "word_syntactic_category",
-    "word_aspect",
-    "word_conjugation",
-    "word_object",
-    "word_declension_case",
-    "word_verb_causing_declension",
+    "root",
+    "original_value_translation",
+    "syntactic_category",
+    "aspect",
+    "conjugation",
+    "object",
+    "declension_case",
+    "verb_causing_declension",
+    "other_syntactic_category",
 ]
 
 
@@ -30,7 +31,7 @@ def calculate_metrics(baseline_path: Path, new_path: Path) -> dict[str, dict]:
     baseline = pd.read_csv(baseline_path)
     new = pd.read_csv(new_path)
 
-    assert list(baseline.columns) == list(new.columns), "CSV column mismatch"
+    assert set(baseline.columns) == set(new.columns), "CSV column mismatch"
     results = {}
     for column in EVALUTION_DIMENSIONS:
         baseline[column] = baseline[column].fillna("N/A")
@@ -63,7 +64,7 @@ def diff_datasets(baseline_path: Path, new_path: Path) -> pd.DataFrame:
     """
     baseline = pd.read_csv(baseline_path)
     new = pd.read_csv(new_path)
-    assert list(baseline.columns) == list(new.columns), "CSV column mismatch"
+    assert set(baseline.columns) == set(new.columns), "CSV column mismatch"
     assert len(baseline) == len(new), "CSV row count mismatch"
     diff = new.copy()
     for col in EVALUTION_DIMENSIONS:

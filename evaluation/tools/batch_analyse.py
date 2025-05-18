@@ -86,15 +86,16 @@ def save_analysed_sentences(
     header = [
         "sentence_id",
         "word_pos",
-        "word_original_value",
-        "word_root",
-        "word_original_value_translation",
-        "word_syntactic_category",
-        "word_aspect",
-        "word_conjugation",
-        "word_object",
-        "word_declension_case",
-        "word_verb_causing_declension",
+        "original_value",
+        "root",
+        "original_value_translation",
+        "syntactic_category",
+        "other_syntactic_category",
+        "aspect",
+        "conjugation",
+        "object",
+        "declension_case",
+        "verb_causing_declension",
     ]
 
     with open(output_file, mode="w", newline="", encoding="utf-8") as csvfile:
@@ -107,17 +108,18 @@ def save_analysed_sentences(
                     {
                         "sentence_id": sentence_id,
                         "word_pos": pos,
-                        "word_original_value": word.original_value,
-                        "word_root": word.root,
-                        "word_original_value_translation": (
-                            word.original_value_translation
+                        "original_value": word.original_value,
+                        "root": word.root,
+                        "original_value_translation": (word.original_value_translation),
+                        "syntactic_category": word.syntatic_category,
+                        "other_syntactic_category": getattr(
+                            word, "other_syntatic_category", None
                         ),
-                        "word_syntactic_category": word.syntatic_category,
-                        "word_aspect": getattr(word, "aspect", None),
-                        "word_conjugation": getattr(word, "conjugation", None),
-                        "word_object": getattr(word, "object", None),
-                        "word_declension_case": getattr(word, "declension_case", None),
-                        "word_verb_causing_declension": getattr(
+                        "aspect": getattr(word, "aspect", None),
+                        "conjugation": getattr(word, "conjugation", None),
+                        "object": getattr(word, "object", None),
+                        "declension_case": getattr(word, "declension_case", None),
+                        "verb_causing_declension": getattr(
                             word, "verb_causing_declension", None
                         ),
                     }

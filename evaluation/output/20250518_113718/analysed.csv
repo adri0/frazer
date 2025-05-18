@@ -1,5 +1,5 @@
 sentence_id,word_pos,original_value,root,original_value_translation,syntactic_category,other_syntactic_category,aspect,conjugation,object,declension_case,verb_causing_declension
-1,0,Kot,kot,cat,noun,,,,,nominative,
+1,0,Kot,kot,cat,noun,,,,,nominative,none
 1,1,pije,pić,drinks,verb,,imperfective,3rd person singular,wodę,,
 1,2,wodę,woda,water,noun,,,,,accusative,pije
 2,0,Maria,Maria,Maria,noun,,,,,nominative,zjadła

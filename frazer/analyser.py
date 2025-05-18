@@ -16,6 +16,7 @@ class SyntacticCategory(str, Enum):
     conjunction = "conjunction"
     interjection = "interjection"
     particle = "particle"
+    other = "other"
 
 
 class Word(BaseModel):
@@ -23,11 +24,24 @@ class Word(BaseModel):
     root: str
     original_value_translation: str
     syntatic_category: SyntacticCategory
+    other_syntatic_category: Optional[str] = Field(
+        description=(
+            "If the word is of a different syntatical function, label "
+            "the word's syntatic category as 'other' and provide its syntactical "
+            "function."
+        ),
+        default=None,
+    )
+
+
+class Aspect(str, Enum):
+    perfective = "perfective"
+    imperfective = "imperfective"
 
 
 class Verb(Word):
     syntatic_category: Literal[SyntacticCategory.verb]
-    aspect: Literal["perfective", "imperfective"]
+    aspect: Aspect
     conjugation: str
     object: Optional[str] = Field(
         description=("Object in the original sentence which this verbs acts upon."),
