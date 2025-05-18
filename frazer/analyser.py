@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Literal, Optional
+from typing import Literal
 
 import instructor
 from openai import OpenAI
@@ -33,21 +33,21 @@ class Number(str, Enum):
 
 
 class VerbConjugation(BaseModel):
-    person: Optional[int] = Field(
+    person: int | None = Field(
         description="The person of the verb (1, 2, or 3)",
         ge=1,
         le=3,
         default=None,
     )
-    number: Optional[Number] = Field(
+    number: Number | None = Field(
         description="The number of the verb (singular or plural)",
         default=None,
     )
-    gender: Optional[Gender] = Field(
+    gender: Gender | None = Field(
         description="The gender of the verb form, if applicable",
         default=None,
     )
-    tense: Optional[Tense] = Field(
+    tense: Tense | None = Field(
         description="The tense of the verb, if applicable",
         default=None,
     )
@@ -58,22 +58,13 @@ class VerbConjugation(BaseModel):
     def __str__(self) -> str:
         """Convert the conjugation to a string representation."""
         parts = []
-
-        # Add person and number if present
         if self.person and self.number:
-            parts.append(f"{self.person}_{self.number}")
-
-        # Add gender if present
+            parts.append(f"{self.person}person_{self.number.value}")
         if self.gender:
             parts.append(self.gender.value)
-
-        # Add tense if present
         if self.tense:
             parts.append(self.tense.value)
-
-        # Add mood
         parts.append(self.mood.value)
-
         return "_".join(parts)
 
 
@@ -95,7 +86,7 @@ class Word(BaseModel):
     root: str
     original_value_translation: str
     syntatic_category: SyntacticCategory
-    other_syntatic_category: Optional[str] = Field(
+    other_syntatic_category: str | None = Field(
         description=(
             "If the word is of a different syntatical function, label "
             "the word's syntatic category as 'other' and provide its syntactical "
@@ -114,7 +105,7 @@ class Verb(Word):
     syntatic_category: Literal[SyntacticCategory.verb]
     aspect: Aspect
     conjugation: VerbConjugation
-    object: Optional[str] = Field(
+    object: str | None = Field(
         description=("Object in the original sentence which this verbs acts upon."),
         default=None,
     )
@@ -125,6 +116,7 @@ class Adjective(Word):
     declension_case: str
     verb_causing_declension: str
     gender: Gender
+    number: Number
 
 
 class Noun(Word):
@@ -132,6 +124,7 @@ class Noun(Word):
     declension_case: str
     verb_causing_declension: str
     gender: Gender
+    number: Number
 
 
 class Preposition(Word):

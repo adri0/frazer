@@ -7,6 +7,8 @@ import click
 
 from frazer.analyser import AnalysedSentence, analyse_sentence
 
+PARALLEL_REQUESTS = 8
+
 
 class InputRecord(NamedTuple):
     id: int
@@ -65,7 +67,7 @@ def analyse_input_records(
             return None
 
     # Run analyses in parallel
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=PARALLEL_REQUESTS) as executor:
         analyzed_sentences = list(
             filter(None, executor.map(analyse_sentence_wrapper, input_records))
         )
@@ -97,12 +99,12 @@ def save_analysed_sentences(
         "declension_case",
         "verb_causing_declension",
         "gender",
+        "number",
     ]
 
     with open(output_file, mode="w", newline="", encoding="utf-8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=header)
         writer.writeheader()
-
         for sentence_id, analysed_sentence in analysed_records:
             for pos, word in enumerate(analysed_sentence.words):
                 writer.writerow(
@@ -124,6 +126,7 @@ def save_analysed_sentences(
                             word, "verb_causing_declension", None
                         ),
                         "gender": getattr(word, "gender", None),
+                        "number": getattr(word, "number", None),
                     }
                 )
 
