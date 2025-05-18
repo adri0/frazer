@@ -6,6 +6,77 @@ from openai import OpenAI
 from pydantic import BaseModel, Field
 
 
+class Gender(str, Enum):
+    masculine = "masculine"
+    feminine = "feminine"
+    neuter = "neuter"
+
+
+class Tense(str, Enum):
+    present = "present"
+    past = "past"
+    future = "future"
+
+
+class Mood(str, Enum):
+    indicative = "indicative"
+    conditional = "conditional"
+    imperative = "imperative"
+    infinitive = "infinitive"
+    active_participle = "active_participle"
+    passive_participle = "passive_participle"
+
+
+class Number(str, Enum):
+    singular = "singular"
+    plural = "plural"
+
+
+class VerbConjugation(BaseModel):
+    person: Optional[int] = Field(
+        description="The person of the verb (1, 2, or 3)",
+        ge=1,
+        le=3,
+        default=None,
+    )
+    number: Optional[Number] = Field(
+        description="The number of the verb (singular or plural)",
+        default=None,
+    )
+    gender: Optional[Gender] = Field(
+        description="The gender of the verb form, if applicable",
+        default=None,
+    )
+    tense: Optional[Tense] = Field(
+        description="The tense of the verb, if applicable",
+        default=None,
+    )
+    mood: Mood = Field(
+        description="The mood of the verb, if applicable",
+    )
+
+    def __str__(self) -> str:
+        """Convert the conjugation to a string representation."""
+        parts = []
+
+        # Add person and number if present
+        if self.person and self.number:
+            parts.append(f"{self.person}_{self.number}")
+
+        # Add gender if present
+        if self.gender:
+            parts.append(self.gender.value)
+
+        # Add tense if present
+        if self.tense:
+            parts.append(self.tense.value)
+
+        # Add mood
+        parts.append(self.mood.value)
+
+        return "_".join(parts)
+
+
 class SyntacticCategory(str, Enum):
     noun = "noun"
     pronoun = "pronoun"
@@ -42,7 +113,7 @@ class Aspect(str, Enum):
 class Verb(Word):
     syntatic_category: Literal[SyntacticCategory.verb]
     aspect: Aspect
-    conjugation: str
+    conjugation: VerbConjugation
     object: Optional[str] = Field(
         description=("Object in the original sentence which this verbs acts upon."),
         default=None,
@@ -53,12 +124,14 @@ class Adjective(Word):
     syntatic_category: Literal[SyntacticCategory.adjective]
     declension_case: str
     verb_causing_declension: str
+    gender: Gender
 
 
 class Noun(Word):
     syntatic_category: Literal[SyntacticCategory.noun]
     declension_case: str
     verb_causing_declension: str
+    gender: Gender
 
 
 class Preposition(Word):

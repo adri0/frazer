@@ -96,6 +96,7 @@ def save_analysed_sentences(
         "object",
         "declension_case",
         "verb_causing_declension",
+        "gender",
     ]
 
     with open(output_file, mode="w", newline="", encoding="utf-8") as csvfile:
@@ -122,6 +123,7 @@ def save_analysed_sentences(
                         "verb_causing_declension": getattr(
                             word, "verb_causing_declension", None
                         ),
+                        "gender": getattr(word, "gender", None),
                     }
                 )
 

@@ -13,6 +13,7 @@ EVALUTION_DIMENSIONS = [
     "declension_case",
     "verb_causing_declension",
     "other_syntactic_category",
+    "gender",
 ]
 
 
