@@ -14,11 +14,11 @@ sentence_id,word_pos,original_value,root,original_value_translation,syntactic_ca
 4,3,na,na,in/on,preposition,,,,,,,,
 4,4,wiosnę,wiosna,spring,noun,,,,,accusative,na,feminine,singular
 5,0,Daję,dać,I give,verb,,imperfective,1person_singular_indicative,,,,,
-5,1,kotu,kot,to the cat,noun,,,,,dative,dać,masculine,singular
-5,2,mleko,mleko,milk,noun,,,,,accusative,dać,neuter,singular
+5,1,kotu,kot,to the cat,noun,,,,,dative,daję,masculine,singular
+5,2,mleko,mleko,milk,noun,,,,,accusative,daję,neuter,singular
 6,0,Pomagam,pomagać,I help,verb,,imperfective,1person_singular_indicative,,,,,
 6,1,dziewczynie,dziewczyna,the girl,noun,,,,,dative,pomagam,feminine,singular
-7,0,Widzę,widzieć,I see,verb,,perfective,1person_singular_indicative,,,,,
+7,0,Widzę,widzieć,I see,verb,,imperfective,1person_singular_indicative,,,,,
 7,1,chłopca,chłopiec,boy,noun,,,,,accusative,widzieć,masculine,singular
 8,0,Mam,mać,I have,verb,,imperfective,1person_singular_indicative,,,,,
 8,1,komputer,komputer,computer,noun,,,,,accusative,mam,masculine,singular
@@ -27,9 +27,9 @@ sentence_id,word_pos,original_value,root,original_value_translation,syntactic_ca
 9,2,kotem,kot,cat,noun,,,,,instrumental,być,masculine,singular
 10,0,Idę,iść,I am going,verb,,imperfective,1person_singular_indicative,,,,,
 10,1,na,na,for,preposition,,,,,,,,
-10,2,spacer,spacer,walk,noun,,,,,accusative,na,masculine,singular
+10,2,spacer,spacer,walk,noun,,,,,accusative,iść,masculine,singular
 10,3,z,z,with,preposition,,,,,,,,
-10,4,Moniką,Monika,Monika,noun,,,,,instrumental,z,feminine,singular
+10,4,Moniką,Monika,Monika,noun,,,,,instrumental,być,feminine,singular
 11,0,Mówię,mówić,I am talking,verb,,imperfective,1person_singular_indicative,,,,,
 11,1,o,o,about,preposition,,,,,,,,
 11,2,kocie,kot,cat,noun,,,,,locative,mówić,masculine,singular
@@ -38,8 +38,8 @@ sentence_id,word_pos,original_value,root,original_value_translation,syntactic_ca
 12,2,się,się,(reflexive pronoun),pronoun,reflexive pronoun,,,,,,,
 12,3,na,na,in/on,preposition,,,,,,,,
 12,4,podwórku,podwórko,yard,noun,,,,,locative,,neuter,singular
-13,0,Kocie,kot,Cat's,noun,,,,,genitive,,neuter,singular
-14,0,Marku,Mark,Mark,noun,,,,,vocative,,masculine,singular
+13,0,Kocie,kocie,Cat's,adjective,,,,,genitive,none,neuter,singular
+14,0,Marku!,Mark,Mark!,other,interjection,,,,,,,
 15,0,Nie,nie,not,other,negation,,,,,,,
 15,1,mogę,móc,can,verb,,imperfective,1person_singular_indicative,,,,,
 15,2,znaleźć,znaleźć,to find,verb,,perfective,infinitive,,,,,
@@ -54,9 +54,9 @@ sentence_id,word_pos,original_value,root,original_value_translation,syntactic_ca
 17,2,książce,książka,book,noun,,,,,locative,rozmawiać,feminine,singular
 18,0,Oddałam,oddać,I returned,verb,,perfective,1person_singular_indicative,,,,,
 18,1,książkę,książka,book,noun,,,,,accusative,Oddałam,feminine,singular
-18,2,Piotrkowi,Piotr,to Piotr,noun,,,,,dative,Oddałam,masculine,singular
+18,2,Piotrkowi,Piotr,Piotr,noun,,,,,dative,Oddałam,masculine,singular
 19,0,Ona,ona,She,pronoun,,,,,,,,
-19,1,bierze,brać,takes,verb,,imperfective,3person_singular_indicative,,,,,
+19,1,bierze,brać,is taking,verb,,imperfective,3person_singular_indicative,,,,,
 19,2,kota,kot,cat,noun,,,,,accusative,bierze,masculine,singular
 19,3,na,na,in/on,preposition,,,,,,,,
 19,4,ręce,ręka,arms,noun,,,,,locative,bierze,feminine,plural
@@ -66,15 +66,28 @@ sentence_id,word_pos,original_value,root,original_value_translation,syntactic_ca
 20,3,dla,dla,for,preposition,,,,,,,,
 20,4,zmniejszenia,zmniejszenie,reduction,noun,,,,,genitive,dla,neuter,singular
 20,5,erozji,erozja,erosion,noun,,,,,genitive,dla,feminine,singular
-20,6,długie,długi,long,adjective,,,,,,,,
-20,7,boki,bok,sides,noun,,,,,,,,plural
-20,8,pola,pole,field,noun,,,,,genitive,dla,neuter,singular
+20,6,długie,długi,long,adjective,,,,,nominative,być,neuter,plural
+20,7,boki,bok,sides,noun,,,,,nominative,być,masculine,plural
+20,8,pola,pole,field,noun,,,,,genitive,być,neuter,singular
 20,9,powinny,powinien,should,verb,,imperfective,3person_plural_indicative,,,,,
 20,10,być,być,to be,verb,,imperfective,infinitive,,,,,
-20,11,wyznaczane,wyznaczać,designated,verb,,,,,,,,
+20,11,wyznaczane,wyznaczać,marked,verb,,,,,,,,
 20,12,wzdłuż,wzdłuż,along,preposition,,,,,,,,
 20,13,warstwic,warstwica,contour lines,noun,,,,,genitive,wzdłuż,feminine,plural
 20,14,prostopadle,prostopadły,perpendicular,adverb,,,,,,,,
 20,15,do,do,to,preposition,,,,,,,,
 20,16,spadku,spadek,slope,noun,,,,,genitive,do,masculine,singular
 20,17,terenu,teren,terrain,noun,,,,,genitive,do,masculine,singular
+21,0,Na,na,In,preposition,,,,,,,,
+21,1,placu,plac,playground,noun,,,,,locative,na,masculine,singular
+21,2,zabaw,zabaw,play,noun,,,,,genitive,na,feminine,plural
+21,3,było,być,there was,verb,,perfective,3person_singular_indicative,,,,,
+21,4,pięcioro,pięcioro,five,noun,,,,,nominative,być,neuter,singular
+21,5,dzieci,dziecko,children,noun,,,,,nominative,być,neuter,plural
+21,6,z,z,of,preposition,,,,,,,,
+21,7,których,który,whom,pronoun,,,,,,,,
+21,8,pięcioro,pięcioro,five,noun,,,,,nominative,być,neuter,singular
+21,9,bawiło,bawić,were playing,verb,,imperfective,3person_plural_indicative,,,,,
+21,10,się,się,(reflexive particle),particle,,,,,,,,
+21,11,dwiema,dwa,two,adjective,,,,,instrumental,bawić,feminine,plural
+21,12,piłkami,piłka,balls,noun,,,,,instrumental,bawić,feminine,plural
