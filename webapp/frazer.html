@@ -67,20 +67,39 @@
                             htmlContent += '<ul class="list-group list-group-flush">';
                             sentence.words.forEach(word => {
                                 htmlContent += `<li class="list-group-item"><strong>${word.original_value}</strong> (${word.root}): ${word.original_value_translation}`;
+                                htmlContent += `, <span class="badge bg-info" title="syntactic category">${word.syntatic_category}</span>`;
+                                if (word.other_syntatic_category) {
+                                    htmlContent += `, <span class="badge bg-warning" title="other syntactic category">${word.other_syntatic_category}</span>`;
+                                }
                                 if (word.declension_case) {
-                                    htmlContent += `, <span class="badge bg-primary" title="declesion">${word.declension_case}</span>`;
+                                    htmlContent += `, <span class="badge bg-primary" title="declension case">${word.declension_case}</span>`;
                                 }
                                 if (word.aspect) {
                                     htmlContent += `, <span class="badge bg-secondary" title="aspect">${word.aspect}</span>`;
                                 }
                                 if (word.conjugation) {
-                                    htmlContent += `, Conjugation: ${word.conjugation}`;
+                                    const conj = word.conjugation;
+                                    htmlContent += `, <span class="badge bg-dark" title="conjugation">`;
+                                    if (conj.person) htmlContent += `${conj.person} person `;
+                                    if (conj.number) htmlContent += `${conj.number} `;
+                                    if (conj.gender) htmlContent += `${conj.gender} `;
+                                    if (conj.tense) htmlContent += `${conj.tense} `;
+                                    htmlContent += `${conj.mood}</span>`;
                                 }
-                                if (word.function) {
-                                    htmlContent += `, Function: ${word.function}`;
+                                if (word.object) {
+                                    htmlContent += `, <span class="badge bg-success" title="object">Object: ${word.object}</span>`;
                                 }
-                                if (word.verb_causing_declension) {
-                                    htmlContent += `, Verb Causing Declension: ${word.verb_causing_declension}`;
+                                if (word.word_causing_declension) {
+                                    htmlContent += `, <span class="badge bg-danger" title="word causing declension">Causes: ${word.word_causing_declension}</span>`;
+                                }
+                                if (word.gender) {
+                                    htmlContent += `, <span class="badge bg-info" title="gender">${word.gender}</span>`;
+                                }
+                                if (word.number) {
+                                    htmlContent += `, <span class="badge bg-info" title="number">${word.number}</span>`;
+                                }
+                                if (word.subtype) {
+                                    htmlContent += `, <span class="badge bg-warning" title="subtype">${word.subtype}</span>`;
                                 }
                                 htmlContent += '</li>';
                             });
@@ -89,6 +108,8 @@
                                 htmlContent += `<h5 class="card-title">Remarks</h5>`;
                                 htmlContent += `<p class="card-text">${sentence.remarks}</p>`;
                             }
+                            htmlContent += `<h5 class="card-title">Grammatical Correctness</h5>`;
+                            htmlContent += `<p class="card-text"><span class="badge ${sentence.grammatically_correct ? 'bg-success' : 'bg-danger'}">${sentence.grammatically_correct ? 'Correct' : 'Incorrect'}</span></p>`;
                             htmlContent += `</div></div>`;
                             $('#result').html(htmlContent).show();
                         } else {

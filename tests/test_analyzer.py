@@ -43,7 +43,7 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
                     root="książka",
                     original_value_translation="book",
                     declension_case="accusative",
-                    verb_causing_declension="czytać",
+                    word_causing_declension="czytać",
                     syntatic_category=SyntacticCategory.noun,
                     gender=Gender.feminine,
                     number=Number.singular,
@@ -79,7 +79,7 @@ def test_sentence_structure(mock_openai_client: None) -> None:
     assert isinstance(noun, Noun)
     assert noun.original_value == "książkę"
     assert noun.declension_case == "accusative"
-    assert noun.verb_causing_declension == "czytać"
+    assert noun.word_causing_declension == "czytać"
 
 
 @pytest.mark.parametrize(

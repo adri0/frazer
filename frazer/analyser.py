@@ -78,6 +78,7 @@ class SyntacticCategory(str, Enum):
     conjunction = "conjunction"
     interjection = "interjection"
     particle = "particle"
+    numeral = "numeral"
     other = "other"
 
 
@@ -122,13 +123,29 @@ class Adjective(Word):
 class Noun(Word):
     syntatic_category: Literal[SyntacticCategory.noun]
     declension_case: str
-    verb_causing_declension: str
+    word_causing_declension: str
     gender: Gender
     number: Number
 
 
 class Preposition(Word):
     syntatic_category: Literal[SyntacticCategory.preposition]
+
+
+class NumeralSubtype(str, Enum):
+    cardinal = "cardinal"  # Główne
+    ordinal = "ordinal"  # Porządkowe
+    collective = "collective"  # Zbiorowe
+    fractional = "fractional"  # Ułamkowe
+    multiplicative = "multiplicative"  # Wielokrotne
+    indefinite = "indefinite"  # Nieokreślone
+
+
+class Numeral(Word):
+    syntatic_category: Literal[SyntacticCategory.numeral]
+    declension_case: str
+    word_causing_declension: str
+    subtype: NumeralSubtype
 
 
 class Other(Word):
@@ -138,7 +155,7 @@ class Other(Word):
 class AnalysedSentence(BaseModel):
     text: str
     translation: str
-    words: list[Noun | Verb | Preposition | Adjective | Other]
+    words: list[Noun | Verb | Preposition | Adjective | Numeral | Other]
     grammatically_correct: bool
     remarks: str | None = Field(
         description=(

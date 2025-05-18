@@ -97,9 +97,10 @@ def save_analysed_sentences(
         "conjugation",
         "object",
         "declension_case",
-        "verb_causing_declension",
+        "word_causing_declension",
         "gender",
         "number",
+        "subtype",
     ]
 
     with open(output_file, mode="w", newline="", encoding="utf-8") as csvfile:
@@ -122,11 +123,12 @@ def save_analysed_sentences(
                         "conjugation": getattr(word, "conjugation", None),
                         "object": getattr(word, "object", None),
                         "declension_case": getattr(word, "declension_case", None),
-                        "verb_causing_declension": getattr(
-                            word, "verb_causing_declension", None
+                        "word_causing_declension": getattr(
+                            word, "word_causing_declension", None
                         ),
                         "gender": getattr(word, "gender", None),
                         "number": getattr(word, "number", None),
+                        "subtype": getattr(word, "subtype", None),
                     }
                 )
 

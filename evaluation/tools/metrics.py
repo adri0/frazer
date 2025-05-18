@@ -11,9 +11,11 @@ EVALUTION_DIMENSIONS = [
     "conjugation",
     "object",
     "declension_case",
-    "verb_causing_declension",
+    "word_causing_declension",
     "other_syntactic_category",
     "gender",
+    "number",
+    "subtype",
 ]
 
 
