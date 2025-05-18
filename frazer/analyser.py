@@ -1,9 +1,71 @@
 from enum import Enum
-from typing import Literal, Optional
+from typing import Literal
 
 import instructor
 from openai import OpenAI
 from pydantic import BaseModel, Field
+
+
+class Gender(str, Enum):
+    masculine = "masculine"
+    feminine = "feminine"
+    neuter = "neuter"
+
+
+class Tense(str, Enum):
+    present = "present"
+    past = "past"
+    future = "future"
+
+
+class Mood(str, Enum):
+    indicative = "indicative"
+    conditional = "conditional"
+    imperative = "imperative"
+    infinitive = "infinitive"
+    active_participle = "active_participle"
+    passive_participle = "passive_participle"
+
+
+class Number(str, Enum):
+    singular = "singular"
+    plural = "plural"
+
+
+class VerbConjugation(BaseModel):
+    person: int | None = Field(
+        description="The person of the verb (1, 2, or 3)",
+        ge=1,
+        le=3,
+        default=None,
+    )
+    number: Number | None = Field(
+        description="The number of the verb (singular or plural)",
+        default=None,
+    )
+    gender: Gender | None = Field(
+        description="The gender of the verb form, if applicable",
+        default=None,
+    )
+    tense: Tense | None = Field(
+        description="The tense of the verb, if applicable",
+        default=None,
+    )
+    mood: Mood = Field(
+        description="The mood of the verb, if applicable",
+    )
+
+    def __str__(self) -> str:
+        """Convert the conjugation to a string representation."""
+        parts = []
+        if self.person and self.number:
+            parts.append(f"{self.person}person_{self.number.value}")
+        if self.gender:
+            parts.append(self.gender.value)
+        if self.tense:
+            parts.append(self.tense.value)
+        parts.append(self.mood.value)
+        return "_".join(parts)
 
 
 class SyntacticCategory(str, Enum):
@@ -16,6 +78,8 @@ class SyntacticCategory(str, Enum):
     conjunction = "conjunction"
     interjection = "interjection"
     particle = "particle"
+    numeral = "numeral"
+    other = "other"
 
 
 class Word(BaseModel):
@@ -23,13 +87,26 @@ class Word(BaseModel):
     root: str
     original_value_translation: str
     syntatic_category: SyntacticCategory
+    other_syntatic_category: str | None = Field(
+        description=(
+            "If the word is of a different syntatical function, label "
+            "the word's syntatic category as 'other' and provide its syntactical "
+            "function."
+        ),
+        default=None,
+    )
+
+
+class Aspect(str, Enum):
+    perfective = "perfective"
+    imperfective = "imperfective"
 
 
 class Verb(Word):
     syntatic_category: Literal[SyntacticCategory.verb]
-    aspect: Literal["perfective", "imperfective"]
-    conjugation: str
-    object: Optional[str] = Field(
+    aspect: Aspect
+    conjugation: VerbConjugation
+    object: str | None = Field(
         description=("Object in the original sentence which this verbs acts upon."),
         default=None,
     )
@@ -39,16 +116,36 @@ class Adjective(Word):
     syntatic_category: Literal[SyntacticCategory.adjective]
     declension_case: str
     verb_causing_declension: str
+    gender: Gender
+    number: Number
 
 
 class Noun(Word):
     syntatic_category: Literal[SyntacticCategory.noun]
     declension_case: str
-    verb_causing_declension: str
+    word_causing_declension: str
+    gender: Gender
+    number: Number
 
 
 class Preposition(Word):
     syntatic_category: Literal[SyntacticCategory.preposition]
+
+
+class NumeralSubtype(str, Enum):
+    cardinal = "cardinal"  # Główne
+    ordinal = "ordinal"  # Porządkowe
+    collective = "collective"  # Zbiorowe
+    fractional = "fractional"  # Ułamkowe
+    multiplicative = "multiplicative"  # Wielokrotne
+    indefinite = "indefinite"  # Nieokreślone
+
+
+class Numeral(Word):
+    syntatic_category: Literal[SyntacticCategory.numeral]
+    declension_case: str
+    word_causing_declension: str
+    subtype: NumeralSubtype
 
 
 class Other(Word):
@@ -58,7 +155,7 @@ class Other(Word):
 class AnalysedSentence(BaseModel):
     text: str
     translation: str
-    words: list[Noun | Verb | Preposition | Adjective | Other]
+    words: list[Noun | Verb | Preposition | Adjective | Numeral | Other]
     grammatically_correct: bool
     remarks: str | None = Field(
         description=(

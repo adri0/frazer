@@ -7,6 +7,8 @@ import click
 
 from frazer.analyser import AnalysedSentence, analyse_sentence
 
+PARALLEL_REQUESTS = 8
+
 
 class InputRecord(NamedTuple):
     id: int
@@ -65,7 +67,7 @@ def analyse_input_records(
             return None
 
     # Run analyses in parallel
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=PARALLEL_REQUESTS) as executor:
         analyzed_sentences = list(
             filter(None, executor.map(analyse_sentence_wrapper, input_records))
         )
@@ -86,40 +88,47 @@ def save_analysed_sentences(
     header = [
         "sentence_id",
         "word_pos",
-        "word_original_value",
-        "word_root",
-        "word_original_value_translation",
-        "word_syntactic_category",
-        "word_aspect",
-        "word_conjugation",
-        "word_object",
-        "word_declension_case",
-        "word_verb_causing_declension",
+        "original_value",
+        "root",
+        "original_value_translation",
+        "syntactic_category",
+        "other_syntactic_category",
+        "aspect",
+        "conjugation",
+        "object",
+        "declension_case",
+        "word_causing_declension",
+        "gender",
+        "number",
+        "subtype",
     ]
 
     with open(output_file, mode="w", newline="", encoding="utf-8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=header)
         writer.writeheader()
-
         for sentence_id, analysed_sentence in analysed_records:
             for pos, word in enumerate(analysed_sentence.words):
                 writer.writerow(
                     {
                         "sentence_id": sentence_id,
                         "word_pos": pos,
-                        "word_original_value": word.original_value,
-                        "word_root": word.root,
-                        "word_original_value_translation": (
-                            word.original_value_translation
+                        "original_value": word.original_value,
+                        "root": word.root,
+                        "original_value_translation": (word.original_value_translation),
+                        "syntactic_category": word.syntatic_category,
+                        "other_syntactic_category": getattr(
+                            word, "other_syntatic_category", None
                         ),
-                        "word_syntactic_category": word.syntatic_category,
-                        "word_aspect": getattr(word, "aspect", None),
-                        "word_conjugation": getattr(word, "conjugation", None),
-                        "word_object": getattr(word, "object", None),
-                        "word_declension_case": getattr(word, "declension_case", None),
-                        "word_verb_causing_declension": getattr(
-                            word, "verb_causing_declension", None
+                        "aspect": getattr(word, "aspect", None),
+                        "conjugation": getattr(word, "conjugation", None),
+                        "object": getattr(word, "object", None),
+                        "declension_case": getattr(word, "declension_case", None),
+                        "word_causing_declension": getattr(
+                            word, "word_causing_declension", None
                         ),
+                        "gender": getattr(word, "gender", None),
+                        "number": getattr(word, "number", None),
+                        "subtype": getattr(word, "subtype", None),
                     }
                 )
 

@@ -2,9 +2,14 @@ import pytest
 
 from frazer.analyser import (
     AnalysedSentence,
+    Gender,
+    Mood,
     Noun,
+    Number,
     SyntacticCategory,
+    Tense,
     Verb,
+    VerbConjugation,
     analyse_sentence,
 )
 
@@ -23,7 +28,13 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
                     root="czytać",
                     original_value_translation="I read",
                     aspect="imperfective",
-                    conjugation="first person singular",
+                    conjugation=VerbConjugation(
+                        person=1,
+                        number=Number.singular,
+                        tense=Tense.present,
+                        mood=Mood.indicative,
+                        gender=Gender.masculine,
+                    ),
                     object="książkę",
                     syntatic_category=SyntacticCategory.verb,
                 ),
@@ -32,8 +43,10 @@ def mock_openai_client(monkeypatch: pytest.MonkeyPatch) -> None:
                     root="książka",
                     original_value_translation="book",
                     declension_case="accusative",
-                    verb_causing_declension="czytać",
+                    word_causing_declension="czytać",
                     syntatic_category=SyntacticCategory.noun,
+                    gender=Gender.feminine,
+                    number=Number.singular,
                 ),
             ],
             grammatically_correct=True,
@@ -66,7 +79,7 @@ def test_sentence_structure(mock_openai_client: None) -> None:
     assert isinstance(noun, Noun)
     assert noun.original_value == "książkę"
     assert noun.declension_case == "accusative"
-    assert noun.verb_causing_declension == "czytać"
+    assert noun.word_causing_declension == "czytać"
 
 
 @pytest.mark.parametrize(
