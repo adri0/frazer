@@ -115,7 +115,7 @@ class Verb(Word):
 class Adjective(Word):
     syntatic_category: Literal[SyntacticCategory.adjective]
     declension_case: str
-    verb_causing_declension: str
+    word_causing_declension: str
     gender: Gender
     number: Number
 
