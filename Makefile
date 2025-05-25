@@ -22,3 +22,6 @@ lambda-url:
 
 evaluation:
 	python -m evaluation generate-report
+
+make-mock-server:
+	uv run python webapp/mock_server.py
