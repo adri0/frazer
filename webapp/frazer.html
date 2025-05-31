@@ -64,46 +64,50 @@
                             htmlContent += `<h5 class="card-title">Translation</h5>`;
                             htmlContent += `<p class="card-text">${sentence.translation}</p>`;
                             htmlContent += `<h5 class="card-title">Words</h5>`;
-                            htmlContent += '<ul class="list-group list-group-flush">';
+                            htmlContent += '<table class="table table-striped table-bordered">';
+                            htmlContent += '<thead><tr>';
+                            htmlContent += '<th>Word</th>';
+                            htmlContent += '<th>Root</th>';
+                            htmlContent += '<th>Translation</th>';
+                            htmlContent += '<th>Syntactic Category</th>';
+                            htmlContent += '<th>Declension Case</th>';
+                            htmlContent += '<th>Aspect</th>';
+                            htmlContent += '<th>Conjugation</th>';
+                            htmlContent += '<th>Object</th>';
+                            htmlContent += '<th>Causes Declension</th>';
+                            htmlContent += '<th>Gender</th>';
+                            htmlContent += '<th>Number</th>';
+                            htmlContent += '<th>Subtype</th>';
+                            htmlContent += '</tr></thead><tbody>';
+                            
                             sentence.words.forEach(word => {
-                                htmlContent += `<li class="list-group-item"><strong>${word.original_value}</strong> (${word.root}): ${word.original_value_translation}`;
-                                htmlContent += `, <span class="badge bg-info" title="syntactic category">${word.syntatic_category}</span>`;
-                                if (word.other_syntatic_category) {
-                                    htmlContent += `, <span class="badge bg-warning" title="other syntactic category">${word.other_syntatic_category}</span>`;
-                                }
-                                if (word.declension_case) {
-                                    htmlContent += `, <span class="badge bg-primary" title="declension case">${word.declension_case}</span>`;
-                                }
-                                if (word.aspect) {
-                                    htmlContent += `, <span class="badge bg-secondary" title="aspect">${word.aspect}</span>`;
-                                }
-                                if (word.conjugation) {
+                                htmlContent += '<tr>';
+                                htmlContent += `<td><strong>${word.original_value}</strong></td>`;
+                                htmlContent += `<td>${word.root}</td>`;
+                                htmlContent += `<td>${word.original_value_translation}</td>`;
+                                htmlContent += `<td>${word.other_syntatic_category ? 
+                                    `<span class="badge bg-warning">${word.other_syntatic_category}</span>` : 
+                                    `<span class="badge bg-info">${word.syntatic_category}</span>`}</td>`;
+                                htmlContent += `<td>${word.declension_case ? `<span class="badge bg-primary">${word.declension_case}</span>` : '-'}</td>`;
+                                htmlContent += `<td>${word.aspect ? `<span class="badge bg-secondary">${word.aspect}</span>` : '-'}</td>`;
+                                htmlContent += `<td>${word.conjugation ? (() => {
                                     const conj = word.conjugation;
-                                    htmlContent += `, <span class="badge bg-dark" title="conjugation">`;
-                                    if (conj.person) htmlContent += `${conj.person} person `;
-                                    if (conj.number) htmlContent += `${conj.number} `;
-                                    if (conj.gender) htmlContent += `${conj.gender} `;
-                                    if (conj.tense) htmlContent += `${conj.tense} `;
-                                    htmlContent += `${conj.mood}</span>`;
-                                }
-                                if (word.object) {
-                                    htmlContent += `, <span class="badge bg-success" title="object">Object: ${word.object}</span>`;
-                                }
-                                if (word.word_causing_declension) {
-                                    htmlContent += `, <span class="badge bg-danger" title="word causing declension">Causes: ${word.word_causing_declension}</span>`;
-                                }
-                                if (word.gender) {
-                                    htmlContent += `, <span class="badge bg-info" title="gender">${word.gender}</span>`;
-                                }
-                                if (word.number) {
-                                    htmlContent += `, <span class="badge bg-info" title="number">${word.number}</span>`;
-                                }
-                                if (word.subtype) {
-                                    htmlContent += `, <span class="badge bg-warning" title="subtype">${word.subtype}</span>`;
-                                }
-                                htmlContent += '</li>';
+                                    let conjText = '';
+                                    if (conj.person) conjText += `${conj.person} person `;
+                                    if (conj.number) conjText += `${conj.number} `;
+                                    if (conj.gender) conjText += `${conj.gender} `;
+                                    if (conj.tense) conjText += `${conj.tense} `;
+                                    conjText += conj.mood;
+                                    return `<span class="badge bg-dark">${conjText}</span>`;
+                                })() : '-'}</td>`;
+                                htmlContent += `<td>${word.object ? `<span class="badge bg-success">${word.object}</span>` : '-'}</td>`;
+                                htmlContent += `<td>${word.word_causing_declension ? `<span class="badge bg-danger">${word.word_causing_declension}</span>` : '-'}</td>`;
+                                htmlContent += `<td>${word.gender ? `<span class="badge bg-info">${word.gender}</span>` : '-'}</td>`;
+                                htmlContent += `<td>${word.number ? `<span class="badge bg-info">${word.number}</span>` : '-'}</td>`;
+                                htmlContent += `<td>${word.subtype ? `<span class="badge bg-warning">${word.subtype}</span>` : '-'}</td>`;
+                                htmlContent += '</tr>';
                             });
-                            htmlContent += '</ul>';
+                            htmlContent += '</tbody></table>';
                             if (sentence.remarks) {
                                 htmlContent += `<h5 class="card-title">Remarks</h5>`;
                                 htmlContent += `<p class="card-text">${sentence.remarks}</p>`;
